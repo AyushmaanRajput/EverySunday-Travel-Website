@@ -1,0 +1,21 @@
+.hero-section{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap:2rem;
+}
+
+.hero-content-container{
+    width:50%;
+}
+.hero-content h1{
+    margin-bottom: 0.5rem;
+}
+.hero-content{
+    margin-bottom: 4rem;
+}
+
+.hero-image-container{
+    width:50%;
+    height:40vh;
+}
