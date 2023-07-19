@@ -16,6 +16,30 @@
 
     <style>
         /* Add your CSS here(optional) */
+        
+        #mainbox{
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+        .packages{
+            border: 2px solid wheat;
+            border-radius: 20px;
+            padding: 10px;
+        }
+        .packages:hover{
+            transform: scale(1.1);
+            background-color: black;
+            border-color: rgb(223, 141, 141);
+        }
+        .packages>div>img{
+            width: auto;
+            border-radius: 20px;
+        }
+      
+        
+     
     </style>
 </head>
 <body>
@@ -34,7 +58,56 @@
     <main>
         <section class="container">
             <!-- Write Your HTML Code here -->
-            
+            <!--tick &#9989-->
+            <!--cross &#10062-->     
+<h2> Pricing Plans</h2>
+<div id="mainbox">
+    <div class="packages" id="basic">
+        <div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_6OUiGOzLiVYN39r3iM2EQqK9p8J1TSfWRw&usqp=CAU" alt=""></div>
+        <h3>Basic</h3>
+        <p>&#9989 Accomodation</p>
+        
+        <p>&#9989 Booking Services</p>
+        <p>&#9989 Customer Services</p>
+        <p>&#9989 Travel Insurance</p>
+        <p>&#10062 Visa And Passport Services</p>
+        <p>&#10062 Personal AC Vehicle</p>
+        <p>&#10062 Multilingual Travel Guide</p>
+        <p>&#10062 Portable Wi-Fi</p>
+    </div>
+    <div class="packages">
+        <div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_6OUiGOzLiVYN39r3iM2EQqK9p8J1TSfWRw&usqp=CAU" alt=""></div>
+        <h3>Premium</h3>
+        <p>&#9989 Accomodation</p>
+        
+        <p>&#9989 Booking Services</p>
+        <p>&#9989 Customer Services</p>
+        <p>&#9989 Travel Insurance</p>
+        <p>&#9989 Visa And Passport Services</p>
+        <p>&#10062 Personal AC Vehicle</p>
+        <p>&#10062 Multilingual Travel Guide</p>
+        <p>&#10062 Portable Wi-Fi</p>
+    </div>
+    <div class="packages">
+        <div><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_6OUiGOzLiVYN39r3iM2EQqK9p8J1TSfWRw&usqp=CAU" alt=""></div>
+        <h3>Platinum</h3>
+        <p>&#9989 Accomodation</p>
+       
+        <p>&#9989 Booking Services</p>
+        <p>&#9989 Customer Services</p>
+        <p>&#9989 Travel Insurance</p>
+        <p>&#9989 Visa And Passport Services</p>
+        <p>&#9989 Personal AC Vehicle</p>
+        <p>&#9989 Multilingual Travel Guide</p>
+        <p>&#9989 Portable Wi-Fi</p>
+    </div>
+</div>
+
+
+
+      
+</div>
+          
 
             <!-- -->
         </section>
@@ -76,4 +149,5 @@
 </html>
 <script>
     // Write all you JS code below
+   
 </script>

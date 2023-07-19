@@ -16,6 +16,46 @@
 
     <style>
         /* Add your CSS here(optional) */
+        .main{
+            display: flex;
+            width: 400px;
+            margin: auto;
+            margin-bottom: 50px;
+            margin-top: 50px;
+        }
+        
+        .signup-page {
+            display: none;
+        }
+        .but{
+            padding: 7px;
+            border-radius: 20px;
+        }
+        .container > div:nth-child(1){
+            width: 400px;
+            margin: auto;
+        }
+        h3{
+            margin-bottom: 20px;
+        }
+        input{
+            padding: 2px 5px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .form-group label {
+            flex-basis: 100px;
+            margin-right: 10px;
+        }
+
+        .form-group input {
+            flex-grow: 1;
+            /* padding: 5px; */
+        }
     </style>
 </head>
 <body>
@@ -34,7 +74,48 @@
     <main>
         <section class="container">
             <!-- Write Your HTML Code here -->
-            
+        <div>
+            <button onclick="showLogin()" class="but">Login Tab</button>
+            <button onclick="showSignup()" class="but">Signup Tab</button>
+        </div>
+        
+        <div class="main">
+            <div id="login" class="login-page">
+                <h3>Login Page</h3>
+                <!-- Add login page details here -->
+                <form id="loginform">
+                    <label for="username">Username:</label>
+                    <input type="email" id="username" name="username" autocomplete="off"><br><br>
+                    <label for="password">Password:</label>
+                    <input type="password" id="passwordl" name="password" autocomplete="off"><br><br>
+                    <button class="but" id="log">Login</button>
+                </form>
+            </div>
+        
+            <div id="signup" class="signup-page">
+                <h3>Signup Page</h3>
+                <!-- Add signup page details here -->
+                <form id="signupform">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" placeholder="name" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" placeholder="email" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" placeholder="password" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password:</label>
+                        <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password">
+                    </div>
+                    <button class="but" id="sign" type="submit">Signin</button>
+                </form>
+            </div>
+        </div>
 
             <!-- -->
         </section>
@@ -76,4 +157,65 @@
 </html>
 <script>
     // Write all you JS code below
+
+    function showLogin() {
+            document.getElementById("login").style.display = "block";
+            document.getElementById("signup").style.display = "none";
+    }
+
+    function showSignup() {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("signup").style.display = "block";
+    }
+
+    let ls_data= JSON.parse(localStorage.getItem("user")) || [];
+
+    let form1=document.getElementById("signupform");
+    let name= document.getElementById("name");
+    let email= document.getElementById("email");
+    let passwords= document.getElementById("passwords");
+    let confirmpassword= document.getElementById("confirm-password");
+
+   form1.addEventListener("submit", function() {
+
+    if(confirmpassword.value !== passwords.value) {
+        alert("Enter same characters as above!!!");
+    }
+    else if (confirmpassword.value === passwords.value) {
+        let object={}
+        object.name=name.value;
+        object.email=email.value;
+        object.password=passwords.value;
+        console.log(object)
+        ls_data.push(object);
+        localStorage.setItem("user",JSON.stringify(ls_data));
+    }
+});
+
+
+    let username= document.getElementById("username");
+    let passwordl= document.getElementById("passwordl");
+    let form2= document.getElementById("loginform");
+    
+    form2.addEventListener("submit", function() {
+        // event.preventDefault();
+        let flag=false;
+
+        for(let i=0; i<ls_data.length; i++) {
+    
+            if(username.value===ls_data[i].email && passwordl.value===ls_data[i].password)  {
+               flag=true;
+               break;
+            }
+        }
+        
+        if(flag==true) {
+           alert("Successfully logged in!!!")
+        }
+        else{
+            alert("Please Enter Correct credentials..")
+        }
+    });
+
+
 </script>

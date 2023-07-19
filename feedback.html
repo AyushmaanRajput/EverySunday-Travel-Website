@@ -16,6 +16,11 @@
 
     <style>
         /* Add your CSS here(optional) */
+        #testimonials-main{
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap:2rem;
+        }
     </style>
 </head>
 <body>
@@ -34,6 +39,9 @@
     <main>
         <section class="container">
             <!-- Write Your HTML Code here -->
+            <div id="testimonials-main">
+
+            </div>
             <!-- -->
         </section>
     </main>
@@ -74,4 +82,62 @@
 </html>
 <script>
     // Write all you JS code below
+    let url = `https://main-mock-server.onrender.com/testimonials`;
+    let testimonials_main = document.querySelector('#testimonials-main');
+    window.addEventListener('load',fetchtestimonials)
+
+    async function fetchtestimonials(){
+        try{
+            let response = await fetch(url);
+            let testimonialsData = await response.json();
+            console.log(testimonialsData)
+            displaytestimonials(testimonialsData)
+        }
+        catch(error){
+            console.log(error);
+            
+        }
+    }
+    // fetchtestimonials();
+    function displaytestimonials(data){
+            testimonials_main.innerHTML=null;
+            data.forEach(item => {
+                let card = createTestimonialsCard(item);
+                testimonials_main.append(card);
+            });
+    }
+    function createTestimonialsCard(item){
+        let card = document.createElement('div');
+        card.className = 'card';
+
+        let avatar = document.createElement('img');
+        avatar.src=item.imgAvatar;
+        avatar.className = 'avatar';
+
+        let headName = document.createElement('div');
+        headName.className = 'headName';
+
+        let name = document.createElement('h3');
+        name.className = 'name';
+        name.textContent = item.name;
+
+        let rating = document.createElement('h3');
+        rating.className = 'rating';
+        rating.textContent = item.rating+'⭐';
+
+        let review = document.createElement('p');
+        review.className = 'review';
+        review.textContent = item.review;
+
+        let postTestimonials = document.createElement('button');
+        postTestimonials.className = 'postTestimonials'
+        postTestimonials.textContent = 'Post'
+        headName.append(name,rating);
+        card.append(avatar,headName,review);
+
+        return card;
+    }
+
+
+    
 </script>
