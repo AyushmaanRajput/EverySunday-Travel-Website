@@ -16,6 +16,7 @@
 </head>
 <style>
     .destinations{
+        padding-block: 2rem;
         display: grid;
         grid-template-columns: repeat(4,1fr);
         gap: 2rem;
@@ -39,6 +40,16 @@
         grid-template-columns: repeat(3,1fr);
         gap: 1rem;
     }
+    .filter-rating i{
+        color: var(--highlight);
+    }
+    #pagination-container{
+        display:flex;
+        align-items: center;
+    }
+    #pagination-container>*{
+        margin-inline: 0.5rem;
+    }
 </style>
 <body>
     <header>
@@ -59,11 +70,11 @@
             <div class="toolbar">
                 <div class="searchbox" id="mainsearch">
                     <input  type="text" placeholder="Enter your destination">
-                    <button class="btn">Get Started</button>
+                    <button class="btn">Search</button>
                 </div>
                 <div class="col-btns">
-                    <button class="col-btn active">3</button>
-                    <button class="col-btn">4</button>
+                    <button class="col-btn active btn-small">3</button>
+                    <button class="col-btn btn-small">4</button>
                 </div>
             </div>
             <div class="sidebar">
@@ -123,6 +134,7 @@
                 <div id="blank">
                     <!-- all destination deta append here -->
                 </div>
+                <div id="pagination-container"></div>
             </div>
         </section>
     </main>
