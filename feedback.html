@@ -42,6 +42,14 @@
             <div id="testimonials-main">
 
             </div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter Your Name" required>
+            <label for="rating">Rating:</label>
+            <input type="number" id="rating" min="1" max="5" placeholder="Enter Your Rating" required><br><br>
+
+            <label for="review">Feedback:</label>
+            <textarea name="review" id="review"  placeholder="Enter your Feedback"></textarea>
+            <button class="btn">Post</button>
             <!-- -->
         </section>
     </main>
@@ -82,11 +90,42 @@
 </html>
 <script>
     // Write all you JS code below
-    let url = `https://main-mock-server.onrender.com/testimonials`;
+    // target all the elements
+    let url = `https://mock-api-server-r9e5.onrender.com/testimonials`;
     let testimonials_main = document.querySelector('#testimonials-main');
-    window.addEventListener('load',fetchtestimonials)
+    let name = document.getElementById('name');
+    let rating = document.getElementById('rating');
+    let textarea = document.getElementById('review');
+    let postBtn = document.querySelector('.btn');
 
-    async function fetchtestimonials(){
+    postBtn.addEventListener('click',postData);
+
+    async function postData(){
+        try{
+            let userdata = {
+                name:name.value,
+                rating:rating.value,
+                review:textarea.value,
+            }
+            let response = await fetch(url,{
+                method:'POST',
+                headers:{
+                    "Content-type":"application/json",
+                },
+                body:JSON.stringify(userdata)
+            });
+            let data = await response.json();
+            fetchtestimonials(url);
+            console.log(data); 
+        }
+        catch(error){
+
+        }
+    }
+
+    // window.addEventListener('load',fetchtestimonials)
+
+    async function fetchtestimonials(url){
         try{
             let response = await fetch(url);
             let testimonialsData = await response.json();
@@ -98,7 +137,7 @@
             
         }
     }
-    // fetchtestimonials();
+    fetchtestimonials(url);
     function displaytestimonials(data){
             testimonials_main.innerHTML=null;
             data.forEach(item => {
@@ -111,7 +150,7 @@
         card.className = 'card';
 
         let avatar = document.createElement('img');
-        avatar.src=item.imgAvatar;
+        // avatar.src=item.imgAvatar;
         avatar.className = 'avatar';
 
         let headName = document.createElement('div');
@@ -134,10 +173,6 @@
         postTestimonials.textContent = 'Post'
         headName.append(name,rating);
         card.append(avatar,headName,review);
-
         return card;
     }
-
-
-    
 </script>
