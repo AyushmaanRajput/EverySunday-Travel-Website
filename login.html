@@ -16,6 +16,9 @@
 
     <style>
         /* Add your CSS here(optional) */
+        *{
+            color: white;
+        }
         .main{
             display: flex;
             width: 400px;
@@ -40,6 +43,12 @@
         }
         input{
             padding: 2px 5px;
+        }
+        #log,#sign{
+            border-radius: 20px;
+            background-color: var(--primary); 
+            color: white;
+            padding: 5px 10px;
         }
         .form-group {
             margin-bottom: 20px;
@@ -80,39 +89,60 @@
         </div>
         
         <div class="main">
+            <!-- Add login page details here -->
+
             <div id="login" class="login-page">
+
                 <h3>Login Page</h3>
-                <!-- Add login page details here -->
+
                 <form id="loginform">
-                    <label for="username">Username:</label>
-                    <input type="email" id="username" name="username" autocomplete="off"><br><br>
-                    <label for="password">Password:</label>
-                    <input type="password" id="passwordl" name="password" autocomplete="off"><br><br>
-                    <button class="but" id="log">Login</button>
-                </form>
-            </div>
-        
-            <div id="signup" class="signup-page">
-                <h3>Signup Page</h3>
-                <!-- Add signup page details here -->
-                <form id="signupform">
+
                     <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" placeholder="name" autocomplete="off">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" autocomplete="off">
                     </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" placeholder="email" autocomplete="off">
-                    </div>
+
                     <div class="form-group">
                         <label for="password">Password:</label>
-                        <input type="password" id="password" placeholder="password" autocomplete="off">
+                        <input type="password" id="passwordl" name="password" >
                     </div>
+
+                    <input type="submit" value="Login" id="log">
+
+                </form>
+                
+            </div>
+        
+            <!-- Add signup page details here -->
+
+            <div id="signup" class="signup-page">
+
+                <h3>Signup Page</h3>
+
+                <form id="signupform">
+
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="passwords" name="password">
+                    </div>
+
                     <div class="form-group">
                         <label for="confirm-password">Confirm Password:</label>
                         <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password">
                     </div>
-                    <button class="but" id="sign" type="submit">Signin</button>
+
+                    <input type="submit" value="Signup" class="but" id="sign">
+
                 </form>
             </div>
         </div>
@@ -169,6 +199,7 @@
     }
 
     let ls_data= JSON.parse(localStorage.getItem("user")) || [];
+    console.log(ls_data)
 
     let form1=document.getElementById("signupform");
     let name= document.getElementById("name");
@@ -198,12 +229,13 @@
     let form2= document.getElementById("loginform");
     
     form2.addEventListener("submit", function() {
+        let data= JSON.parse(localStorage.getItem("user"))
         // event.preventDefault();
         let flag=false;
 
-        for(let i=0; i<ls_data.length; i++) {
+        for(let i=0; i<data.length; i++) {
     
-            if(username.value===ls_data[i].email && passwordl.value===ls_data[i].password)  {
+            if(username.value===data[i].email && passwordl.value===data[i].password)  {
                flag=true;
                break;
             }
