@@ -122,17 +122,3 @@ function createCard(item) {
   card.append(img, title, country, rating, itemBtn);
   return card;
 }
-
-// this function fetches individual photoes based on query string
-
-async function findImageUrl(query) {
-  try {
-    const response = await fetch(
-      `https://api.unsplash.com/search/photos?query=${query}&client_id=3tYuCQraI7s0B2DooME9qes1DqQKGkrF8Fm64SWdKf8&per_page=${1}`
-    );
-    const data = await response.json();
-    imageUrl = data.results[0].urls.regular;
-  } catch (error) {
-    console.error("Error occurred:", error);
-  }
-}
