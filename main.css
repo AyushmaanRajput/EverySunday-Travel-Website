@@ -10,6 +10,8 @@
   --highlight: #f5e577; /* main hightlight color for text and icons */
   --white: #fff; /* main text and heading color */
   --white-light: rgba(255, 255, 255, 0.813);
+  --success:#2ecc71;
+  --failure:#e74c3c;
 
   /* TYPOGRAPHY */
 
