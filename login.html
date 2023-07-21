@@ -43,6 +43,7 @@
         }
         input{
             padding: 2px 5px;
+            color:grey;
         }
         #log,#sign{
             border-radius: 20px;
@@ -190,10 +191,13 @@
 </html>
 <script>
     // Write all you JS code below
+    <!-- Your HTML code remains the same -->
 
+
+    // Write all your JS code below
     function showLogin() {
-            document.getElementById("login").style.display = "block";
-            document.getElementById("signup").style.display = "none";
+        document.getElementById("login").style.display = "block";
+        document.getElementById("signup").style.display = "none";
     }
 
     function showSignup() {
@@ -201,54 +205,79 @@
         document.getElementById("signup").style.display = "block";
     }
 
-    let ls_data= JSON.parse(localStorage.getItem("user")) || [];
-    console.log(ls_data)
+    let login_data = [];
 
-    let form1=document.getElementById("signupform");
-    let name= document.getElementById("name");
-    let email= document.getElementById("email");
-    let passwords= document.getElementById("passwords");
-    let confirmpassword= document.getElementById("confirm-password");
-
-   form1.addEventListener("submit", function() {
-
-    if(confirmpassword.value !== passwords.value) {
-        alert("Enter same characters as above!!!");
+    async function fetchData() {
+        try {
+            let res = await fetch("https://mock-every-sunday-server.onrender.com/users");
+            let data = await res.json();
+            console.log(data);
+            login_data = data;
+        } catch (err) {
+            console.log(err);
+        }
     }
-    else if (confirmpassword.value === passwords.value) {
-        let object={}
-        object.name=name.value;
-        object.email=email.value;
-        object.password=passwords.value;
-        console.log(object)
-        ls_data.push(object);
-        localStorage.setItem("user",JSON.stringify(ls_data));
+    fetchData();
+
+    let form1 = document.getElementById("signupform");
+    let name = document.getElementById("name");
+    let email = document.getElementById("email");
+    let password = document.getElementById("passwords");
+    let confirmPassword = document.getElementById("confirm-password");
+
+    form1.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        if (confirmPassword.value !== password.value) {
+            alert("Enter the same characters for password and confirm password fields!");
+        } else {
+            signup();
+        }
+    },{once: true});
+
+    async function signup() {
+        try {
+            let res = await fetch("https://mock-every-sunday-server.onrender.com/users", {
+                method: "POST",
+                body: JSON.stringify({
+                    name: name.value,
+                    email: email.value,
+                    password: password.value
+                }),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
+            let data = await res.json();
+            fetchData();
+            console.log(data);
+        } catch (err) {
+            console.log(err);
+        }
     }
-});
 
+    let username = document.getElementById("username");
+    let passwordLogin = document.getElementById("passwordl");
+    let form2 = document.getElementById("loginform");
+// console.log(login_data)
 
-    let username= document.getElementById("username");
-    let passwordl= document.getElementById("passwordl");
-    let form2= document.getElementById("loginform");
-    
-    form2.addEventListener("submit", function() {
-        let data= JSON.parse(localStorage.getItem("user"))
-        // event.preventDefault();
-        let flag=false;
+    form2.addEventListener("submit", function(event) {
+        event.preventDefault();
 
-        for(let i=0; i<data.length; i++) {
-    
-            if(username.value===data[i].email && passwordl.value===data[i].password)  {
-               flag=true;
-               break;
+        let flag = false;
+
+        for (let i = 0; i < login_data.length; i++) {
+            if (username.value === login_data[i].name && passwordLogin.value === login_data[i].password) {
+                flag = true;
+                break;
             }
         }
-        
-        if(flag==true) {
-           alert("Successfully logged in!!!")
-        }
-        else{
-            alert("Please Enter Correct credentials..")
+
+        if (flag) {
+            alert("Successfully logged in!!!");
+        } else {
+            alert("Please enter correct credentials.");
         }
     });
 </script>
