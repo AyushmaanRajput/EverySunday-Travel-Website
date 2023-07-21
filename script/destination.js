@@ -122,3 +122,4 @@ function createCard(item) {
   card.append(img, title, country, rating, itemBtn);
   return card;
 }
+  
