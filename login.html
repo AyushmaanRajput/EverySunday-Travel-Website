@@ -73,12 +73,12 @@
         <nav class="container">
             <img src="./assets/brand-logo.svg" alt="Every Sunday Logo">
             <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/">Destination</a></li>
-                <li><a href="/">Feedback</a></li>
-                <li><a href="/">Pricing</a></li>
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="/destination.html">Destination</a></li>
+                <li><a href="/feedback.html">Feedback</a></li>
+                <li><a href="/prices.html">Pricing</a></li>
             </ul>
-            <i class="fa-solid fa-user"></i>
+            <i class="fa-solid fa-user" id="login-btn"></i>
         </nav>
     </header>
     <main>
@@ -269,6 +269,7 @@
 
         for (let i = 0; i < login_data.length; i++) {
             if (username.value === login_data[i].name && passwordLogin.value === login_data[i].password) {
+                
                 flag = true;
                 break;
             }
@@ -280,4 +281,5 @@
             alert("Please enter correct credentials.");
         }
     });
+
 </script>
