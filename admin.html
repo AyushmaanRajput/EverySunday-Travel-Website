@@ -32,6 +32,18 @@
             padding: .5rem;
             border-radius: 50px;
         }
+        .viweUser{
+            margin: 1rem 0;
+        }
+        .viweUser button{
+            width: 100%;
+        }
+        .editdesti{
+            margin: 1rem 0;
+        }
+        .editdesti button{
+            width: 100%;
+        }
         .main-content{
         grid-area: maincontent;
         position: relative;
@@ -44,9 +56,30 @@
         gap: 1rem;
         margin-bottom: 2rem;
         }
-        #userdetailstable{
-            display: none;
+        .card{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
+        .imgheader{
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        .imgheader img{
+            width: 100%;
+            height: 100%;
+        }
+        .wraper{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin: 10px 0;
+        }
+
     </style>
 </head>
 <body>
@@ -87,6 +120,10 @@
 
                 </div>
 
+                <div class="editdesti">
+                    <button class="editdes btn">Edit Destination</button>
+                </div>
+
                 <div class="viweUser">
                     <button class="viewAllUsers btn">View All Users</button>
                 </div>
@@ -108,25 +145,8 @@
             <!-- View All Desinations -->
             <!-- table -->
             <div class="main-content">
-                <!-- <img src="./assets/Loader.svg" alt="loader" id="loader"> -->
                 <div id="blank">
                     <!-- all destination deta append here -->
-                    <table id="userdetailstable">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Password</th>
-                                <th>ImageAvatarId</th>
-                                <th>User Id</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody class="tbody">
-                            <!-- all user will be append here -->
-            
-                        </tbody>
-                        </table>
                 </div>
             </div>
 
@@ -174,6 +194,7 @@
     let viewAllDestinations = document.querySelector(".viewAllDestinations")
     let userdetailstable = document.querySelector("#userdetailstable")
     let main_container = document.querySelector("#blank");
+    let editdes = document.querySelector(".editdes")
 
     let id = document.getElementById("id")
     let city = document.getElementById("city")
@@ -208,8 +229,8 @@
 
     // add description function
 
-        addDestination.addEventListener("click", () => {
-            fetch(destinationUrl,{
+    addDestination.addEventListener("click", () => {
+            fetch(destinationURL,{
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({
@@ -227,7 +248,7 @@
             .then((res)=>{return res.json()})
             .then((data)=>{
                 console.log(data)
-                datafetch(destinationUrl)
+                datafetch(destinationURL)
             })
             .catch((err)=>{
                 console.log(err)
@@ -236,7 +257,31 @@
 
     // add user data to the dom
     function displayUserData(data){
-        tbody.innerHTML = null;
+        main_container.innerHTML = null
+
+        let table = document.createElement("table")
+
+        let thead = document.createElement("thead");
+        let trhead = document.createElement("tr");
+        let namehead = document.createElement("th"); 
+        let emailhead = document.createElement("th");
+        let passwordhead = document.createElement("th"); 
+        let imageAvatarIdhead = document.createElement("th"); 
+        let userIdhead = document.createElement("th");
+        let deletehead = document.createElement("th");
+
+        namehead.textContent = "Name";
+        emailhead.textContent = "Email";
+        passwordhead.textContent = "Password";
+        imageAvatarIdhead.textContent = "ImageAvatarId";
+        userIdhead.textContent = "UserId";
+        deletehead.textContent = "Delete";
+
+        trhead.append(namehead,emailhead,passwordhead,imageAvatarIdhead,userIdhead,deletehead);
+        thead.append(trhead);
+
+        let tbody = document.createElement("tbody");
+
         data.forEach(ele => {
             let tr = document.createElement("tr");
             let name = document.createElement("td");
@@ -252,7 +297,7 @@
             imageAvatarId.textContent = ele.imgAvatar;
             userId.textContent = ele.id;
         
-            deleteBtn.className = "deleteUserBtn"
+            deleteBtn.className = "deleteUserBtn btn-small"
             deleteBtn.innerText = "Delete"
             deleteBtn.addEventListener("click", () => {
                 console.log(ele.id)
@@ -268,7 +313,9 @@
             tr.append(name,email,password,imageAvatarId,userId,deleteBtn);
             tbody.appendChild(tr);
         });
-        
+
+        table.append(thead,tbody);
+        main_container.append(table)
     }
 
     // this fetch function for user fetching only
@@ -287,7 +334,7 @@
 
     // view users profile
     viewAllUsers.addEventListener("click", () => {
-        userdetailstable.style.display = "block"
+        // userdetailstable.style.display = "block"
         datauserfetch(userUrl)
     })
 
@@ -307,22 +354,23 @@
     function singleCard(item){
         let card = document.createElement("div");
         card.className = "card";
-        let imgheader = document.create("div")
-        imageheader.className = "imgheader";
+        let imgheader = document.createElement("div")
+        imgheader.className = "imgheader";
         let img = document.createElement("img");
         img.src = item.img;
-        imageheader.appendChild(img);
+        imgheader.appendChild(img);
 
-        let cityname = document.createElement("h2");
+        
+        let cityname = document.createElement("h3");
         cityname.innerText = item.name;
-        let countryname = document.createElement("h3");
+        let countryname = document.createElement("h4");
         countryname.innerText = item.country;
         let edit = document.createElement("button");
         let deleteBtn = document.createElement("button");
         edit.innerText = "Edit";
         deleteBtn.innerText = "Delete";
-        edit.classList.add("edit","btn");
-        deleteBtn.classList.add("delete","btn");
+        edit.classList.add("edit","btn-small");
+        deleteBtn.classList.add("delete","btn-small");
 
         edit.addEventListener("click", () => {
             
@@ -343,6 +391,7 @@
             image.value = item.img;
             id.value = item.id;
         });
+
         deleteBtn.addEventListener("click", () => {
             fetch(`${destinationURL}/${item.id}`,{
                 method:"DELETE",
@@ -355,8 +404,43 @@
             })
         });
 
-        card.append(imageheader,cityname,countryname,edit,deleteBtn);
+        let wraper = document.createElement("div");
+        wraper.className = "wraper";
+        wraper.append(edit,deleteBtn)
+        card.append(imgheader,cityname,countryname,wraper);
         return card;
     }
+
+    // edit destination
+
+    editdes.addEventListener("click", () => {
+
+        fetch(`${destinationURL}/${id.value}`,{
+            method:"PATCH",
+            headers:{
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify({
+                name:city.value,
+                country:country.value,
+                description:description.value,
+                attractions :[attraction1.value,attraction2.value,attraction3.value],
+                estimatedCost: estimatedCost.value,
+                rating: rating.value,
+                activity: [activity1.value,activity2.value,activity3.value],
+                food: [food1.value,food2.value,food3.value],
+                img: image.value
+            })
+        })
+        .then((res)=>{
+            return res.json();
+        })
+        .then((data)=>{
+            datafetch(destinationURL)
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
+    })
 </script>
 </html>
