@@ -116,7 +116,6 @@ input:focus {
 button {
   color: var(--white);
   font-size: var(--button);
-  background-color: var(--primary);
   border-radius: 50px;
   cursor: pointer;
 }
@@ -247,7 +246,7 @@ footer .socials .social:hover {
 /**** Utility Classes *****/
 /*  */
 .container {
-  width: min(65rem, 95%);
+  width: min(77.5rem, 95%);
   margin-inline: auto;
 }
 
@@ -259,10 +258,12 @@ footer .socials .social:hover {
 /* Add this class to all normal button elements */
 .btn {
   padding: 0.5em 1.5rem;
+  background-image: linear-gradient(to bottom right,var(--primary-light),var(--primary));
 }
 /* Add this class to all smaller button elements */
 .btn-small {
   padding: 0.25em 1.25em;
+  background-image: linear-gradient(to bottom right,var(--primary-light),var(--primary));
   font-size: var(--button-small);
 }
 
@@ -290,10 +291,15 @@ footer .socials .social:hover {
 .large-card {
   min-width: 18rem;
   padding: 3rem;
-  background-color: var(--background-light);
+  background-image: linear-gradient(var(--background-light), var(--background));
   border: 4px solid var(--white-light);
 }
 
 /* Highlight Circle */
 .highlight-circle {
+  padding: 1rem;
+  border: 2px solid var(--primary);
+  display: inline-block;
+  border-radius: 50%;
+  margin-bottom: 1rem;
 }
