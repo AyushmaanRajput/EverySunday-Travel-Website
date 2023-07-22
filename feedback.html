@@ -16,9 +16,11 @@
 
     <style>
         /* Add your CSS here(optional) */
+
         .feedback{
             padding-block: 5rem;
         }
+
         .feedback h1 span{
             color:var(--highlight);
         }
@@ -118,19 +120,28 @@
             margin-bottom: 0.75rem;
         }
 
+        @media screen and (max-width:1020px){
+            /* medium screen */
+        }
+
+        @media screen and (max-width: 600px){
+            /* smaller screen */
+        }
+
+
     </style>
 </head>
 <body>
     <header>
-        <nav class="container">
+        <nav class="container feedback-header">
             <img src="./assets/brand-logo.svg" alt="Every Sunday Logo">
             <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/">Destination</a></li>
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="/destination.html">Destination</a></li>
                 <li><a href="/">Feedback</a></li>
-                <li><a href="/">Pricing</a></li>
+                <li><a href="/prices.html">Pricing</a></li>
             </ul>
-            <i class="fa-solid fa-user"></i>
+            <i class="fa-solid fa-user" id="login-btn"></i>
         </nav>
     </header>
     <main>
