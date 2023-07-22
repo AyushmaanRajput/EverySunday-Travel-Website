@@ -15,6 +15,14 @@
      <link rel="stylesheet" href="./main.css">
 </head>
 <style>
+    main{
+        position: relative;
+    }
+    .btn-small{
+        background-image: none;
+        background-color: var(--primary);
+    }
+
     .destinations{
         padding-block: 2rem;
         display: grid;
@@ -22,6 +30,7 @@
         grid-template-areas: 
         "toolbar toolbar toolbar toolbar"
         "sidebar maincontent maincontent maincontent";
+        gap:3rem 2rem;
     }
     .toolbar{
         width:100%;
@@ -30,20 +39,24 @@
         align-items: center;
         justify-content: space-between;
         padding-bottom: 2rem;
+        border-bottom: 1px solid var(--background-light);
     }
     
     .col-btns{
         display: flex;
     }
-    .col-btns>button{
+    .col-btn{
         margin-left: 0.5rem;
+        color:var(--background-light);
+        background-color: transparent;
+        border:2px solid var(--background-light);
     }
     .col-active{
-        background-color: var(--background-dark);
-        border: 2px solid var(--primary);
-        color:var(--primary);
-        font-weight: bold;
+        color:var(--white);
+        background-color: var(--primary);
+        border-color: var(--primary);
     }
+    /* Sidebar CSS */
     .sidebar{
         display: flex;
         flex-direction: column;
@@ -84,28 +97,7 @@
         color:var(--white);
         cursor: pointer;
     }
-    .main-content{
-        grid-area: maincontent;
-        position: relative;
-        min-height: 50vh;
-        padding: 2rem;
-    }
-    #blank{
-        display: grid;
-        grid-template-columns: repeat(3,1fr);
-        gap: 1rem;
-        margin-bottom: 2rem;
-    }
-    #loader{
-        display:none;
-        width: 150px;
-        height: 150px;
-        position: absolute;
-        top: 50%;
-        left:50%;
-        transform: translate(-50%,-50%);
-        z-index: 10000;
-    }
+
     .filter-rating i{
         color: var(--highlight);
     }
@@ -121,18 +113,236 @@
     .filter-price>.filter-price-option:hover{
         color:var(--primary);
     }
+    /* Styling for Cards */
+    .main-content{
+        grid-area: maincontent;
+        position: relative;
+        min-height: 50vh;
+        padding: 2rem;
+        /* background-color: var(--background-light); */
+        border-radius: 2rem;
+        border: 8px solid var(--white);
+    }
+    #blank{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 2rem 1rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+    }
+    #loader{
+        display:none;
+        width: 150px;
+        height: 150px;
+        position: absolute;
+        top: 50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        z-index: 10000;
+    }
+    .destination-card{
+        background-color: var(--background-dark);
+        overflow: hidden;
+        border-radius: 2rem;
+        border:2px solid var(--background-light)
+    }
+    
+    .destination-card img{
+        object-fit: cover;
+        max-height: 250px;
+        height: 200px;
+        width: 100%;
+    }
+    .destination-card> div{
+        padding:1rem;
+        position: relative;
+    }
+    .destination-card>div .fa-plane-departure{
+        position: absolute;
+        bottom: -25%;
+        right: -2%;
+        font-size: 6rem;
+        color:var(--background-light);
+        opacity: 0.2;
+    }
+    .destination-card> div h4{
+        display: inline;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .destination-card> div .destination-rating{
+        display:inline;
+        color:var(--highlight);
+        font-size: 0.75rem;
+    }
+    .destination-card> div p{
+        color:var(--white-light);
+        margin-bottom: 1rem;
+    }
+    .destination-card>div p span{
+        font-size: 2rem;
+        font-weight: bolder;
+        color:var(--highlight);
+    }
+
+    .view-details{
+        color:var(--primary);
+        background-color: transparent;
+        border:1px solid var(--primary);
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Destination Modal Styling */
+
+    #destination-dialog{
+        max-height: 80vh;
+        width:min(60rem,100%);
+        position: fixed;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        background-color: var(--background-dark);
+        padding:2rem;
+        border-radius: 2rem;
+        border:none;
+        border:2px solid var(--background-light);
+        display:none;/* toggling on off using js*/
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-areas: 
+        "back back back back"
+        "mainImage mainImage mainImage mainImage"
+        "imgRow imgRow imgRow imgRow"
+        "Desc Desc Desc Desc"
+        "Act Act Act Act"
+        "Att Att Att Att"
+        "back2 addToCart addToCart addToCart";
+        gap:1rem;
+        overflow-x: hidden;
+    }
+    #destination-dialog::backdrop{
+       background:#0008; 
+    }
+    #destination-dialog::-webkit-scrollbar{
+        width:0.5em;
+    }
+    #destination-dialog::-webkit-scrollbar-track{
+        background-color: transparent !important;
+        margin-block: 3em;
+        /* border: 20px solid transparent; */
+        background-clip: content-box;
+    }
+    #destination-dialog::-webkit-scrollbar-thumb{
+        background-color: var(--background-light);
+        border-radius: 50px;
+        border:4px solid transparent !important;
+    }
+    .close-destination:first-of-type{
+        grid-area: back;
+        grid-column: span 1;
+    }
+    .close-destination:last-of-type{
+        grid-area: back2;
+        grid-column: span 1;
+    }
+    #addToCart{
+        grid-area: addToCart;
+        grid-column: span 1;
+    }
+
+    #destination-img-container{
+        width:100%;
+        grid-area: mainImage;
+        height: 30rem;
+        border:1rem;
+        overflow: hidden !important;
+    }
+    #destination-img-container img{
+        height: 30rem;
+        width: 100%;
+    }
+    #destination-img-container img,
+    #destination-img-row img{
+        object-fit: cover;
+        border-radius: 2rem;
+    }
+    #destination-img-row{
+        grid-area:imgRow;
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+        gap:1rem;
+        margin-bottom: 2rem;
+    }
+    #destination-img-row img{
+        height: 200px;
+        width: 24%;
+        border-radius: 1rem;
+    }
+    #destination-description{
+        grid-area: Desc;
+        margin-bottom: 1rem;
+
+    }
+    #destination-activity{
+        grid-area: Act;
+        margin-bottom: 1rem;
+    }
+    #destination-attractions{
+        grid-area: Att;
+        margin-bottom: 1rem;
+    }
+    #destination-activity>h4,
+    #destination-attractions>h4{
+        margin-bottom: 1rem;
+    }
+    #destination-activity>div,
+    #destination-attractions>div{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap:1rem;
+    }
+    #destination-activity>div>*,
+    #destination-attractions>div>*{
+        margin-right: 0.5rem;
+    }
+    #destination-activity>div:last-child,
+    #destination-attractions>div:last-child{
+        margin:0;
+    }
+    #destination-activity>div img,
+    #destination-attractions>div img{
+        width: 33%;
+        height: 200px;
+        border-radius: 1rem;
+        object-fit: cover;
+    }
+    
+    
+    /* Pagination Buttons Styling */
     #pagination-container{
         display:flex;
         align-items: center;
         justify-content: center;
+        border-top: 1px solid var(--background-light);
+        padding-top: 2rem;
     }
     #pagination-container .btn-small{
-        background-color: var(--background-dark);
-        color: var(--primary);
+        color:var(--background-light);
+        background-color: transparent;
+        border:2px solid var(--background-light);
+        width: 4rem;
+        background-image:none;
         /* border:1px solid var(--primary); */
     }
     #pagination-container>*{
-        margin-inline: 0.5rem;
+        margin-inline: 0.25rem;
+    }
+    #pagination-container .btn-small.page-active{
+        color:var(--white);
+        background-color: var(--primary);
+        border-color: var(--primary);
     }
 </style>
 <body>
@@ -151,6 +361,23 @@
         </nav>
     </header>
     <main>
+        <dialog id="destination-dialog">
+            <button id="close-destination" class="btn-small view-details "><i class="fa-solid fa-arrow-left" ></i> Back</button>
+            <div id="destination-img-container">
+                <!-- Main Image of City goes here -->
+            </div>
+            <id id="destination-img-row">
+                <!-- Row of 4 images of city -->
+            </id>
+            <div id="destination-description">
+                <!-- All Description of the city goes here -->
+            </div>
+            <div id="destination-activity">
+                <!-- All the activity Images goes here -->
+            </div>
+            <div id="destination-attractions"></div>
+            <button id="addToCart" class="btn">Add To Cart</button>
+        </dialog>
         <section class="container destinations">
             <!-- Copy this searchbox If you want to use it somewhere else -->
             <div class="toolbar">
@@ -159,8 +386,8 @@
                     <button class="btn-small">Search</button>
                 </div>
                 <div class="col-btns">
-                    <button class="col-btn btn-small col-active" id="3-col">3</button>
-                    <button class="col-btn btn-small" id="4-col">4</button>
+                    <button class="col-btn btn-small col-active" id="2-col">2</button>
+                    <button class="col-btn btn-small" id="3-col">3</button>
                 </div>
             </div>
             <div class="sidebar">
@@ -178,7 +405,6 @@
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-regular fa-star"></i>
-
                         <i class="fa-regular fa-star"></i>
                     </div>
                     <div class="three" title="> 2/5 Stars" data="3">
