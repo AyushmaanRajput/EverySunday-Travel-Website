@@ -134,7 +134,12 @@
                         <label for="email">Email:</label>
                         <input type="email" id="email" name="email" autocomplete="off">
                     </div>
-
+                    
+                    <div class="form-group">
+                        <label for="dob">Date of Birth:</label>
+                        <input type="date" id="dob" name="dob" autocomplete="off">
+                      </div>
+                      
                     <div class="form-group">
                         <label for="password">Password:</label>
                         <input type="password" id="passwords" name="password">
@@ -262,24 +267,32 @@
     let form2 = document.getElementById("loginform");
 // console.log(login_data)
 
-    form2.addEventListener("submit", function(event) {
-        event.preventDefault();
+form2.addEventListener("submit", function(event) {
+  event.preventDefault();
 
-        let flag = false;
+  let flag = false;
 
-        for (let i = 0; i < login_data.length; i++) {
-            if (username.value === login_data[i].name && passwordLogin.value === login_data[i].password) {
-                
-                flag = true;
-                break;
-            }
-        }
+  for (let i = 0; i < login_data.length; i++) {
+    if (username.value === login_data[i].name && passwordLogin.value === login_data[i].password) {
+      // User logged in successfully.
+      flag = true;
+      if (username.value === "admin" && passwordLogin.value === "admin") {
+        alert("Successfully logged into admin page!!!!");
+        window.location.assign("admin.html");
+      } else {
+        alert("Successfully logged in!!!");
+        // Redirect to the regular user page (change "admin.html" to the appropriate user page).
+        window.location.assign("admin.html");
+      }
+      break;
+    }
+  }
 
-        if (flag) {
-            alert("Successfully logged in!!!");
-        } else {
-            alert("Please enter correct credentials.");
-        }
-    });
+  if (!flag) {
+    alert("Please enter correct credentials.");
+  }
+});
+
+    
 
 </script>
