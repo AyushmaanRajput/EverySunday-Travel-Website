@@ -16,7 +16,15 @@
 
     <style>
         /* Add your CSS here(optional) */
-
+        .menu-btn{
+            position:absolute;
+            top: 30px;
+            right: 0px;
+            width: 30px;
+            cursor: pointer;
+            display: none;
+            /* this is hamburger css */
+        }
         .feedback{
             padding-block: 5rem;
         }
@@ -116,16 +124,260 @@
             line-height: 1.3;
             margin-bottom: 1rem;
         }
+        .responsive_char{
+            font-size: 10vh;
+        }
         #testimonial-grid .card h3{
             margin-bottom: 0.75rem;
         }
 
         @media screen and (max-width:1020px){
             /* medium screen */
+            .feedback{
+            padding-block: 5rem;
         }
 
-        @media screen and (max-width: 600px){
+        .feedback h1 span{
+            color:var(--highlight);
+        }
+
+        #testimonials-main{
+            padding-block: 3rem;
+            position:relative;
+            margin-bottom: 20em;
+        }
+        .feedback-form{
+            position:absolute;
+            bottom:-8%;
+            left:50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            width:min(95%,30rem);
+            margin-inline: auto;
+            background-color: var(--background-dark);
+            padding:2rem;
+            color:var(--background-dark);
+            border-radius: 2rem;
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            border:8px solid var(--white);
+        }
+        .feedback-form h3{
+            text-align: center;
+        }
+        .feedback-form h3 span{
+            color:var(--highlight);
+        }
+        .feedback-form>input,.feedback-form>select,.feedback-form>textarea{
+            align-self: stretch;
+            border-radius: 0.5rem;
+            border:none;
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+        }
+        .feedback-form>textarea{
+            margin-bottom: 2rem;
+        }
+        .feedback-form label{
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            align-self: flex-start;
+            margin-bottom: 0.5rem;
+            color:var(--white-light);
+            font-size:var(--nav-link);
+        }
+        #testimonial-grid{
+            display:grid;
+            grid-template-columns: 1fr 1fr ;
+            gap:1rem;
+            background-color: transparent;
+            border:8px solid var(--white);
+            border-radius: 4rem;
+            padding:2rem;
+            padding-bottom: 10rem;
+        }
+        #testimonial-grid .card{
+            background-color: var(--background-dark);
+            box-shadow: 0 2px 5px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            text-align: right;
+            padding-bottom: 1rem;
+            transition: box-shadow 0.2s ease-out;
+        }
+        #testimonial-grid .card:hover{
+            box-shadow: 2px 4px 10px 5px rgba(255, 255,255, 0.1);
+        }
+
+        #testimonial-grid .card i{
+            position: absolute;
+            font-size: 6rem;
+            color:var(--background-light);
+            opacity: 0.3;
+            top:-2%;
+            left:5%;
+        }
+        #testimonial-grid .card img{
+            width: 6rem;
+            margin-left: auto;
+            margin-bottom: 0.5rem;
+            border-radius: 50%;
+            border:2px solid var(--background-light);
+        }
+        #testimonial-grid .card p{
+            font-size: var(--nav-link);
+            width: 100%;
+            letter-spacing: 1px;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+        .responsive_char{
+            font-size: 10vh;
+        }
+        #testimonial-grid .card h3{
+            margin-bottom: 0.75rem;
+        }
+
+        }
+
+        @media screen and (max-width: 700px){
             /* smaller screen */
+            .feedback{
+            padding-block: 5rem;
+        }
+
+        .feedback h1 span{
+            color:var(--highlight);
+        }
+
+        #testimonials-main{
+            padding-block: 3rem;
+            position:relative;
+            margin-bottom: 20em;
+        }
+        .feedback-form{
+            bottom:-5%;
+            left:50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            width:min(70%,30rem);
+            margin-inline: auto;
+            background-color: var(--background-dark);
+            padding:2rem;
+            color:var(--background-dark);
+            border-radius: 2rem;
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            border:8px solid var(--white);
+        }
+        .feedback-form h3{
+            text-align: center;
+        }
+        .feedback-form h3 span{
+            color:var(--highlight);
+        }
+        .feedback-form>input,.feedback-form>select,.feedback-form>textarea{
+            align-self: stretch;
+            border-radius: 0.5rem;
+            border:none;
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+        }
+        .feedback-form>textarea{
+            margin-bottom: 2rem;
+        }
+        .feedback-form label{
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            align-self: flex-start;
+            margin-bottom: 0.5rem;
+            color:var(--white-light);
+            font-size:var(--nav-link);
+        }
+        #testimonial-grid{
+            display:grid;
+            grid-template-columns: repeat(1,1fr);
+            gap:1rem;
+            background-color: transparent;
+            border:8px solid var(--white);
+            border-radius: 4rem;
+            padding:2rem;
+            padding-bottom: 10rem;
+        }
+        #testimonial-grid .card{
+            background-color: var(--background-dark);
+            box-shadow: 0 2px 5px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            text-align: right;
+            padding-bottom: 1rem;
+            transition: box-shadow 0.2s ease-out;
+        }
+        #testimonial-grid .card:hover{
+            box-shadow: 2px 4px 10px 5px rgba(255, 255,255, 0.1);
+        }
+
+        #testimonial-grid .card i{
+            position: absolute;
+            font-size: 6rem;
+            color:var(--background-light);
+            opacity: 0.3;
+            top:-2%;
+            left:5%;
+        }
+        #testimonial-grid .card img{
+            width: 6rem;
+            margin-left: auto;
+            margin-bottom: 0.5rem;
+            border-radius: 50%;
+            border:2px solid var(--background-light);
+        }
+        #testimonial-grid .card p{
+            font-size: var(--nav-link);
+            width: 100%;
+            letter-spacing: 1px;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+        .responsive_char{
+            font-size: 8vh;
+        }
+        .dobottom{
+            margin-top: 30px;
+        }
+        #testimonial-grid .card h3{
+            margin-bottom: 0.75rem;
+        }
+        /* hamburger css */
+        .navbarham{
+            padding: 0;
+        }
+        .navbarhamlinks{
+            flex-direction: column;
+            width: 100%;
+            height: 100vh;
+            margin-top: -900px;
+            justify-content: center;
+            transition: all ease;
+        }
+        .navbarhamlinks li{
+            margin: 10px auto;
+        }
+        .hamlogo{
+            position: absolute;
+            top: 30px;
+            left: 0px;
+
+        }
+        .menu-btn{
+            display: block;
+        }
+        .mobile-menu{
+            margin-top: 0px;
+        }
+
         }
 
 
@@ -133,21 +385,23 @@
 </head>
 <body>
     <header>
-        <nav class="container feedback-header">
-            <img src="./assets/brand-logo.svg" alt="Every Sunday Logo">
-            <ul>
+        <nav class="container feedback-header navbarham">
+            <img src="./assets/brand-logo.svg"  class="hamlogo" alt="Every Sunday Logo">
+            <ul class="navbarhamlinks">
                 <li><a href="/index.html">Home</a></li>
                 <li><a href="/destination.html">Destination</a></li>
                 <li><a href="/">Feedback</a></li>
                 <li><a href="/prices.html">Pricing</a></li>
+                <li><i class="fa-solid fa-user" id="login-btn"></i></li>
             </ul>
-            <i class="fa-solid fa-user" id="login-btn"></i>
+            <!-- <i class="fa-solid fa-user" id="login-btn"></i> -->
+            <img src="./assets/ham.png" class="menu-btn" alt="">
         </nav>
     </header>
     <main>
         <section class="container feedback">
             <!-- Write Your HTML Code here -->
-            <h1>What <span>Our Customers</span> say about us  </h1>
+            <h1 class="responsive_char">What <span>Our Customers</span> say about us  </h1>
             
             <!-- -->
             <div id="testimonials-main">
@@ -169,7 +423,8 @@
     <footer>
         <section class="articles"></section>
         <div class="container">
-            <h1>Get started and early <span>Update</span> about our package</h1>
+            <!-- add h1 class responsive -->
+            <h1 class="responsive_char dobottom">Get started and early <span>Update</span> about our package</h1>
             <!-- Copy this searchbox If you want to use it somewhere else -->
             <div class="searchbox">
                 <input  type="text" placeholder="Enter your email">
@@ -306,4 +561,10 @@
         card.append(quote,img,headName,review);
         return card;
     }
+    // add hambruger
+    let menu_btn = document.querySelector('.menu-btn');
+    let navbarhamlinks = document.querySelector('.navbarhamlinks');
+    menu_btn.addEventListener('click',()=>{
+        navbarhamlinks.classList.toggle('mobile-menu')
+    })
 </script>
