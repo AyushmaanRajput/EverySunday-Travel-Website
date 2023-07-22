@@ -26,7 +26,7 @@
         .Destination{
             display: flex;
             flex-direction: column;
-            gap: .5rem;
+            gap: 1rem;
         }
         .Destination input{
             padding: .5rem;
@@ -55,6 +55,42 @@
         grid-template-columns: repeat(3,1fr);
         gap: 1rem;
         margin-bottom: 2rem;
+        }
+        /* table */
+        table {
+            border-collapse: collapse;
+            width: 60%;
+            margin: auto;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        table td,
+        table th {
+            border: 1px solid var(--white);
+            padding: 8px;
+            text-align: center;
+        }
+
+        table tr:nth-child(even) {
+            background-color: var(--background-light);
+        }
+
+        table tr:hover {
+            background-color: var(--white);
+        }
+
+        table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: var(--background-dark);
+            color: white;
+            text-align: center;
+        }
+        .deleteUserBtn{
+            text-align: center;
+            margin: 1rem 0;
         }
         .card{
             display: flex;
@@ -119,31 +155,21 @@
                     <button class="addDestination btn">Add Destination</button>
 
                 </div>
-
+                <!-- edit destination button -->
                 <div class="editdesti">
                     <button class="editdes btn">Edit Destination</button>
                 </div>
-
+                <!-- view user button -->
                 <div class="viweUser">
                     <button class="viewAllUsers btn">View All Users</button>
                 </div>
-
+                <!-- view destination button -->
                 <div class="viewDestination">
                     <button class="viewAllDestinations btn">View All Destinations</button>
                 </div>
                 
             </div>
-           
-            <!-- form -->
 
-            <!-- View All Users -->
-           
-
-            <!-- table -->
-            
-
-            <!-- View All Desinations -->
-            <!-- table -->
             <div class="main-content">
                 <div id="blank">
                     <!-- all destination deta append here -->
