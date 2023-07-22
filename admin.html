@@ -21,10 +21,44 @@
     <main>
         <section class="container">
             <!-- Add New Destination -->
+            <input type="text" id="city" placeholder="Enter City"/>
+            <input type="text" id="country" placeholder="Enter country">
+            <input type="text" id="description" placeholder="Enter description">
+            <input type="text" id="attraction1" placeholder="Add Attraction"> 
+            <input type="text" id="attraction2" placeholder="Add Attraction"> 
+            <input type="text" id="attraction3" placeholder="Add Attraction">
+            <input type="number" id="estimatedCost" placeholder="Add EstimatedCost"> 
+            <input type="number" id="rating" placeholder="Rating">
+            <input type="text" id="activity1" placeholder="Add Activity">
+            <input type="text" id="activity2" placeholder="Add Activity">
+            <input type="text" id="activity3" placeholder="Add Activity">
+            <input type="text" id="food1" placeholder="Add popular Food">
+            <input type="text" id="food2" placeholder="Add popular Food">
+            <input type="text" id="food3" placeholder="Add popular Food">
+            <input type="text" id="image" placeholder="Add Image url">
+            <button class="addDestination">Add Destination</button>
             <!-- form -->
 
             <!-- View All Users -->
+            <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>ImageAvatarId</th>
+                    <th>User Id</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody class="tbody">
+                <!-- all user will be append here -->
+
+            </tbody>
+            </table>
+
             <!-- table -->
+            <button class="viewAllUsers">View All Users</button>
 
             <!-- View All Desinations -->
             <!-- table -->
@@ -64,4 +98,126 @@
         </div>
     </footer>
 </body>
+<script>
+    let destinationUrl = "https://mock-every-sunday-server.onrender.com/destinations"
+    let userUrl = "https://mock-every-sunday-server.onrender.com/users"
+
+    let tbody = document.querySelector(".tbody")
+    let viewAllUsers = document.querySelector(".viewAllUsers")
+
+    let city = document.getElementById("city")
+    let country = document.getElementById("country")
+    let description = document.getElementById("description")
+    let attraction1 = document.getElementById("attraction1")
+    let attraction2 = document.getElementById("attraction2")
+    let attraction3 = document.getElementById("attraction3")
+    let estimatedCost = document.getElementById("estimatedCost")
+    let rating = document.getElementById("rating")
+    let activity1 = document.getElementById("activity1")
+    let activity2 = document.getElementById("activity2")
+    let activity3 = document.getElementById("activity3")
+    let food1 = document.getElementById("food1")
+    let food2 = document.getElementById("food2")
+    let food3 = document.getElementById("food3")
+    let image = document.getElementById("image")
+    let addDestination = document.querySelector(".addDestination")
+
+
+ async function datafetch(url){
+    try{
+        let res = await fetch(url)
+        let data = await res.json();
+        console.log(data)
+    } 
+    catch(error){
+        console.log(error);
+    }
+}
+
+    // add description function
+
+        addDestination.addEventListener("click", () => {
+            fetch(destinationUrl,{
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                name: city.value,
+                country: country.value,
+                description: description.value,
+                attractions :[attraction1.value,attraction2.value,attraction3.value],
+                estimatedCost: estimatedCost.value,
+                rating: rating.value,
+                activity: [activity1.value,activity2.value,activity3.value],
+                food: [food1.value,food2.value,food3.value],
+                img: image.value,
+                })
+            })
+            .then((res)=>{return res.json()})
+            .then((data)=>{
+                console.log(data)
+                datafetch(destinationUrl)
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+        });
+
+    // add user data to the dom
+    function displayUserData(data){
+        tbody.innerHTML = null;
+        data.forEach(ele => {
+            let tr = document.createElement("tr");
+            let name = document.createElement("td");
+            let email = document.createElement("td");
+            let password = document.createElement("td");
+            let imageAvatarId = document.createElement("td");
+            let userId = document.createElement("td");
+            let deleteBtn = document.createElement("button");
+
+            name.textContent = ele.name;
+            email.textContent = ele.email;
+            password.textContent = ele.password;
+            imageAvatarId.textContent = ele.imgAvatar;
+            userId.textContent = ele.id;
+        
+            deleteBtn.className = "deleteUserBtn"
+            deleteBtn.innerText = "Delete"
+            deleteBtn.addEventListener("click", () => {
+                console.log(ele.id)
+                fetch(`${userUrl}/${ele.id}`,{
+                    method:"DELETE"
+                })
+                .then((response) => {return response.json()})
+                .then((data)=>{
+                    console.log(data)
+                    datauserfetch(userUrl)
+                })
+            })
+            tr.append(name,email,password,imageAvatarId,userId,deleteBtn);
+            tbody.appendChild(tr);
+        });
+        
+    }
+
+    // this fetch function for user fetching only
+
+    async function datauserfetch(url){
+        try{
+            let res = await fetch(url)
+            let data = await res.json();
+            console.log(data)
+            displayUserData(data)
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
+
+    // view users profile
+    viewAllUsers.addEventListener("click", () => {
+        datauserfetch(userUrl)
+    })
+
+    
+</script>
 </html>
