@@ -4,6 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Page</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        .admin{
+        padding-block: 2rem;
+        display: grid;
+        grid-template-columns:1fr 1fr 1fr 1fr;
+        grid-template-areas: 
+        "sidebar maincontent maincontent maincontent";
+        }
+        .sidebar{
+        grid-area: sidebar;
+        display: flex;
+        flex-direction: column;
+        border: 4px solid var(--white);
+        border-radius: 1rem;
+        padding-block: 2rem;
+        padding-inline: 1rem;
+        align-self: flex-start;
+        }
+        .Destination{
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+        }
+        .Destination input{
+            padding: .5rem;
+            border-radius: 50px;
+        }
+        .main-content{
+        grid-area: maincontent;
+        position: relative;
+        min-height: 50vh;
+        padding: 2rem;
+        }
+        #blank{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap: 1rem;
+        margin-bottom: 2rem;
+        }
+        #userdetailstable{
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -19,49 +63,72 @@
         </nav>
     </header>
     <main>
-        <section class="container">
-            <!-- Add New Destination -->
-            <input type="text" id="city" placeholder="Enter City"/>
-            <input type="text" id="country" placeholder="Enter country">
-            <input type="text" id="description" placeholder="Enter description">
-            <input type="text" id="attraction1" placeholder="Add Attraction"> 
-            <input type="text" id="attraction2" placeholder="Add Attraction"> 
-            <input type="text" id="attraction3" placeholder="Add Attraction">
-            <input type="number" id="estimatedCost" placeholder="Add EstimatedCost"> 
-            <input type="number" id="rating" placeholder="Rating">
-            <input type="text" id="activity1" placeholder="Add Activity">
-            <input type="text" id="activity2" placeholder="Add Activity">
-            <input type="text" id="activity3" placeholder="Add Activity">
-            <input type="text" id="food1" placeholder="Add popular Food">
-            <input type="text" id="food2" placeholder="Add popular Food">
-            <input type="text" id="food3" placeholder="Add popular Food">
-            <input type="text" id="image" placeholder="Add Image url">
-            <button class="addDestination">Add Destination</button>
+        <section class="container admin">
+            <div class="sidebar">
+                <div class="Destination">
+                    <!-- Add New Destination -->
+                    <input type="text" id="id" placeholder="Id">
+                    <input type="text" id="city" placeholder="Enter City"/>
+                    <input type="text" id="country" placeholder="Enter country">
+                    <input type="text" id="description" placeholder="Enter description">
+                    <input type="text" id="attraction1" placeholder="Add Attraction"> 
+                    <input type="text" id="attraction2" placeholder="Add Attraction"> 
+                    <input type="text" id="attraction3" placeholder="Add Attraction">
+                    <input type="number" id="estimatedCost" placeholder="Add EstimatedCost"> 
+                    <input type="number" id="rating" placeholder="Rating">
+                    <input type="text" id="activity1" placeholder="Add Activity">
+                    <input type="text" id="activity2" placeholder="Add Activity">
+                    <input type="text" id="activity3" placeholder="Add Activity">
+                    <input type="text" id="food1" placeholder="Add popular Food">
+                    <input type="text" id="food2" placeholder="Add popular Food">
+                    <input type="text" id="food3" placeholder="Add popular Food">
+                    <input type="text" id="image" placeholder="Add Image url">
+                    <button class="addDestination btn">Add Destination</button>
+
+                </div>
+
+                <div class="viweUser">
+                    <button class="viewAllUsers btn">View All Users</button>
+                </div>
+
+                <div class="viewDestination">
+                    <button class="viewAllDestinations btn">View All Destinations</button>
+                </div>
+                
+            </div>
+           
             <!-- form -->
 
             <!-- View All Users -->
-            <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Password</th>
-                    <th>ImageAvatarId</th>
-                    <th>User Id</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody class="tbody">
-                <!-- all user will be append here -->
-
-            </tbody>
-            </table>
+           
 
             <!-- table -->
-            <button class="viewAllUsers">View All Users</button>
+            
 
             <!-- View All Desinations -->
             <!-- table -->
+            <div class="main-content">
+                <!-- <img src="./assets/Loader.svg" alt="loader" id="loader"> -->
+                <div id="blank">
+                    <!-- all destination deta append here -->
+                    <table id="userdetailstable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th>ImageAvatarId</th>
+                                <th>User Id</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbody">
+                            <!-- all user will be append here -->
+            
+                        </tbody>
+                        </table>
+                </div>
+            </div>
 
         </section>
     </main>
@@ -99,12 +166,16 @@
     </footer>
 </body>
 <script>
-    let destinationUrl = "https://mock-every-sunday-server.onrender.com/destinations"
+    let destinationURL = "https://mock-every-sunday-server.onrender.com/destinations"
     let userUrl = "https://mock-every-sunday-server.onrender.com/users"
 
     let tbody = document.querySelector(".tbody")
     let viewAllUsers = document.querySelector(".viewAllUsers")
+    let viewAllDestinations = document.querySelector(".viewAllDestinations")
+    let userdetailstable = document.querySelector("#userdetailstable")
+    let main_container = document.querySelector("#blank");
 
+    let id = document.getElementById("id")
     let city = document.getElementById("city")
     let country = document.getElementById("country")
     let description = document.getElementById("description")
@@ -128,6 +199,7 @@
         let res = await fetch(url)
         let data = await res.json();
         console.log(data)
+        appendDestination(data)
     } 
     catch(error){
         console.log(error);
@@ -215,9 +287,76 @@
 
     // view users profile
     viewAllUsers.addEventListener("click", () => {
+        userdetailstable.style.display = "block"
         datauserfetch(userUrl)
     })
 
-    
+    viewAllDestinations.addEventListener("click", () => {
+        datafetch(destinationURL);
+    })
+
+    // append destionation to dom function  
+
+    function appendDestination(arr){
+        main_container.innerHTML = null;
+        arr.forEach(ele => {
+            main_container.append(singleCard(ele))
+        })
+    }
+
+    function singleCard(item){
+        let card = document.createElement("div");
+        card.className = "card";
+        let imgheader = document.create("div")
+        imageheader.className = "imgheader";
+        let img = document.createElement("img");
+        img.src = item.img;
+        imageheader.appendChild(img);
+
+        let cityname = document.createElement("h2");
+        cityname.innerText = item.name;
+        let countryname = document.createElement("h3");
+        countryname.innerText = item.country;
+        let edit = document.createElement("button");
+        let deleteBtn = document.createElement("button");
+        edit.innerText = "Edit";
+        deleteBtn.innerText = "Delete";
+        edit.classList.add("edit","btn");
+        deleteBtn.classList.add("delete","btn");
+
+        edit.addEventListener("click", () => {
+            
+            city.value = item.name;
+            country.value = item.country;
+            description.value = item.description;
+            attraction1.value = item.attractions[0];
+            attraction2.value = item.attractions[1];
+            attraction3.value = item.attractions[2];
+            estimatedCost.value = item.estimatedCost;
+            rating.value = item.rating;
+            activity1.value = item.activity[0];
+            activity2.value = item.activity[1];
+            activity3.value = item.activity[2];
+            food1.value = item.food[0];
+            food2.value = item.food[1];
+            food3.value = item.food[2];
+            image.value = item.img;
+            id.value = item.id;
+        });
+        deleteBtn.addEventListener("click", () => {
+            fetch(`${destinationURL}/${item.id}`,{
+                method:"DELETE",
+            })
+            .then((res)=>{
+                return res.json();
+            })
+            .then((data)=>{
+                datafetch(destinationURL)
+            })
+        });
+
+        card.append(imageheader,cityname,countryname,edit,deleteBtn);
+        return card;
+    }
 </script>
 </html>
