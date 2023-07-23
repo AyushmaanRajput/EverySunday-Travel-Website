@@ -385,18 +385,27 @@
 </head>
 <body>
     <header>
-        <nav class="container feedback-header navbarham">
-            <img src="./assets/brand-logo.svg"  class="hamlogo" alt="Every Sunday Logo">
-            <ul class="navbarhamlinks">
+        <nav class="container">
+            <img src="./assets/brand-logo.svg" alt="Every Sunday Logo">
+            <ul>
                 <li><a href="/index.html">Home</a></li>
                 <li><a href="/destination.html">Destination</a></li>
                 <li><a href="/">Feedback</a></li>
                 <li><a href="/prices.html">Pricing</a></li>
-                <li><i class="fa-solid fa-user" id="login-btn"></i></li>
             </ul>
-            <a href="./login.html"><i class="fa-solid fa-user" id="login-btn"></i></a>
-            <!-- <i class="fa-solid fa-user" id="login-btn"></i> -->
-            <img src="./assets/ham.png" class="menu-btn" alt="">
+            <!-- <div id="toggle">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+            </div> -->
+            <div id="login-container">
+                <a href="./login.html" id="loginBtn"><i class="fa-solid fa-user" id="login-btn"></i></a>
+                <div style="display: none;">
+                    <a href='./checkout.html'><i class="fa-solid fa-cart-shopping" style="margin-right:1rem"></i></a>
+                    <a href="/" id="logout-btn" class='btn-small' style='border-radius:50px;color:var(--white)'>Log Out</a>
+                </div>       
+            </div>
         </nav>
     </header>
     <main>

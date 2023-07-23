@@ -3,9 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout Page</title>
+    <!-- Favicon Icon -->
+    <link rel="icon" type="image/x-icon" href="/assets/brand-icon.svg">
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Links To All Style Files -->
+    <link rel="stylesheet" href="./main.css">
+
+    <title>Every Sunday | Cart</title>
     <style>
         /* CSS here */
+        .cart-section{
+            padding-block: 5rem;
+        }
+        table {
+            width: 100%;
+        }
+        td{
+            text-align: center;
+            padding:0.5rem 1rem;
+            border:1px solid var(--background-dark);
+        }
+        #append select{
+           background-color: var(--background-dark);
+           color:var(--white);
+        }
     </style>
 </head>
 <body>
@@ -13,18 +37,42 @@
         <nav class="container">
             <img src="./assets/brand-logo.svg" alt="Every Sunday Logo">
             <ul>
-                <li><a href="/">Home</a></li>
+                <li><a href="/index.html">Home</a></li>
                 <li><a href="/destination.html">Destination</a></li>
                 <li><a href="/feedback.html">Feedback</a></li>
                 <li><a href="/prices.html">Pricing</a></li>
             </ul>
-            <i class="fa-solid fa-user" id="login-btn"></i>
+            <!-- <div id="toggle">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+            </div> -->
+            <div id="login-container">
+                <a href="./login.html" id="loginBtn"><i class="fa-solid fa-user" id="login-btn"></i></a>
+                <div style="display: none;">
+                    <a href='./checkout.html'><i class="fa-solid fa-cart-shopping" style="margin-right:1rem"></i></a>
+                    <a href="/" id="logout-btn" class='btn-small' style='border-radius:50px;color:var(--white)'>Log Out</a>
+                </div>       
+            </div>
         </nav>
     </header>
     <main>
-        <section class="container">
+        <section class="container cart-section">
             <!--  -->
-
+            <h1>Your <span>Cart</span></h1>
+            <table>
+                <thead class="thead">
+                    <th>City</th>
+                    <th>People</th>
+                    <th>Days</th>
+                    <th>Tier</th> 
+                    <th>Remove Item</th>
+                </thead>
+                <tbody class="append" id="append">
+                    <!-- Date Appended Here -->
+                </tbody>
+            </table>
         </section>
     </main>
     <footer>
@@ -66,4 +114,133 @@
 <script src="main.js"></script>
 <script>
     // JS code goes here
+    let tbody = document.querySelector('#append');
+
+    window.addEventListener('load', getUser);
+
+async function getUser() {
+    let id=JSON.parse(localStorage.getItem('userId'));
+    let url = `https://mock-every-sunday-server.onrender.com/users?id=${id}`;
+    try {
+        let res = await fetch(url);
+        let data= await res.json();
+        // console.log(data[0].cart);
+        displayCart(data[0].cart);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+function displayCart(cart){
+        tbody.innerHTML="";
+        cart.forEach((item,i)=>{
+            let row = document.createElement('tr');
+            
+            let city=document.createElement('td');
+            city.innerText = item.city;
+            
+            let numPeople=document.createElement('td');
+            // numPeople.style.display = 'flex';
+            let peopleValue= document.createElement('p');
+            peopleValue.innerText =item.numOfPeople;
+            let minus1=document.createElement('button');
+            minus1.innerText='-';
+            minus1.classList.add('btn-small');
+            minus1.addEventListener('click',()=>{
+                if(peopleValue.innerText>1){
+                    peopleValue.innerText=peopleValue.innerText-1;
+                    item.numOfPeople=+peopleValue.innerText;
+                }
+            })
+            let plus1=document.createElement('button');
+            plus1.innerText='+';
+            plus1.classList.add('btn-small');
+            plus1.addEventListener('click',()=>{
+                peopleValue.innerText=peopleValue.innerText+1;
+                item.numOfPeople=+peopleValue.innerText;
+            })
+            numPeople.append(minus1,peopleValue,plus1);
+
+            let numDays=document.createElement('td');
+            // numDays.style.display = 'flex';
+            let daysValue= document.createElement('p');
+            daysValue.innerText =item.numOfDays;
+            let minus2=document.createElement('button');
+            minus2.innerText='-';
+            minus2.classList.add('btn-small');
+            minus2.addEventListener('click',()=>{
+                if(daysValue.innerText>1){
+                    daysValue.innerText=daysValue.innerText-1;
+                    item.numOfDays=+daysValue.innerText;
+                }
+            })
+            let plus2=document.createElement('button');
+            plus2.innerText='+';
+            plus2.classList.add('btn-small');
+            plus2.addEventListener('click',()=>{
+                daysValue.innerText=daysValue.innerText+1;
+                item.numOfDays=+daysValue.innerText;
+            })
+            numDays.append(minus2,daysValue,plus2);
+
+            let tierCont=document.createElement('td');
+            let tier = document.createElement("select");
+            let options = ["Basic", "Premium", "Luxury"];
+            for (let i = 0; i < options.length; i++) {
+                let optionElement = document.createElement("option");
+                optionElement.text = options[i];
+                optionElement.value = options[i];
+                tier.append(optionElement);
+            }
+            if(item.tier=='Basic'){
+                tier.value='Basic';
+            }else if(item.tier=='Premium'){
+                tier.value='Premium';
+            }else if(item.tier=='Luxury'){
+                tier.value='Luxury';
+            }
+            tierCont.append(tier);
+
+            let td=document.createElement('td');
+            let delBtn=document.createElement('button');
+            delBtn.innerText="Remove Item";
+            delBtn.classList.add('btn');
+            delBtn.style.backgroundImage='none';
+            delBtn.style.backgroundColor='var(--failure)';
+            td.append(delBtn)
+
+            row.append(city,numPeople,numDays,tierCont,td);
+            tbody.append(row);
+        })
+    }
+    // All operators functions
+    function increasePeople(index) {
+        data[index].numOfPeople++;
+        saveLocalStorage();
+        displayData(data);
+    }
+    function decreasePeople(index) {
+        if (data[index].numOfPeople > 0) {
+            data[index].numOfPeople--;
+            saveLocalStorage();
+            displayData(data);
+        }
+    }
+    function increaseDays(index) {
+        data[index].numOfDay++;
+        saveLocalStorage();
+        displayData(data);
+    }
+    function decreaseDays(index) {
+        if (data[index].numOfDay > 0) {
+            data[index].numOfDay--;
+            saveLocalStorage();
+            displayData(data);
+        }
+    }
+    function deleteDestination(index) {
+        data.splice(index, 1);
+        saveLocalStorage();
+        displayData(data);
+    }
 </script>

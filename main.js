@@ -34,3 +34,20 @@ function displayMessage(str, type) {
 //     document.body.classList.remove('light-mode');
 //   }
 // })
+let loginBtn = document.querySelector("#loginBtn");
+let userId = JSON.parse(localStorage.getItem("userId"));
+let loginCont = document.querySelector("#login-container");
+let logoutCont = document.querySelector("#login-container>div");
+let logoutBtn = document.getElementById("logout-btn");
+
+if (userId) {
+  loginBtn.style.display = "none";
+  logoutCont.style.display = "block";
+  logoutBtn.addEventListener("click", () => {
+    localStorage.removeItem("userId");
+  });
+} else {
+  loginBtn.addEventListener("click", () => {
+    window.location.href = "login.html";
+  });
+}

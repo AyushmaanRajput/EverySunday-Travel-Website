@@ -422,14 +422,3 @@ footer .socials .social a:hover {
 #toggle .slider.round:before {
   border-radius: 50%;
 }
-
-/* lightmode */
-/* .light-mode {
-  --background-dark: #f0f2f5; /* Darkest shade of the light color */
-  --background: #ffffff; /* Medium shade of the light color */
-  --background-light: #f5f7fa; /* Lightest shade of the light color */
-  --white: #111; /* main text and heading color */
-  --white-light: #333;
-  /* --success: #2ecc71;
-  --failure: #e74c3c; */
-} */

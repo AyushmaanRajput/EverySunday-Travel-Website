@@ -149,7 +149,18 @@
                 <li><a href="/feedback.html">Feedback</a></li>
                 <li><a href="/prices.html">Pricing</a></li>
             </ul>
-            <a href="./login.html"><i class="fa-solid fa-user" id="login-btn"></i></a>
+            <!-- <div id="toggle">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+            </div> -->
+            <div id="login-container">
+                <a href="./login.html" id="loginBtn"><i class="fa-solid fa-user" id="login-btn"></i></a>
+                <div style="display: none;">
+                    <a href="/" id="logout-btn" class='btn-small' style='border-radius:50px;color:var(--white)'>Log Out</a>
+                </div>       
+            </div>
         </nav>
     </header>
     <main>
@@ -376,7 +387,9 @@
             imgAvatarwraper.className = "imgAvatarwraper"
             let imgAvatar = document.createElement("img");
             let userId = document.createElement("td");
+
             let deletetd = document.createElement("td");
+
             let deleteBtn = document.createElement("button");
 
             name.textContent = ele.name;
@@ -407,8 +420,10 @@
                     datauserfetch(userUrl)
                 })
             })
+
             deletetd.append(deleteBtn)
             tr.append(imageAvatarId,name,email,password,userId,deletetd);
+
             tbody.appendChild(tr);
         });
 
