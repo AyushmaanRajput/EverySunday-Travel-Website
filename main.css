@@ -10,8 +10,8 @@
   --highlight: #f5e577; /* main hightlight color for text and icons */
   --white: #fff; /* main text and heading color */
   --white-light: rgba(255, 255, 255, 0.813);
-  --success:#2ecc71;
-  --failure:#e74c3c;
+  --success: #2ecc71;
+  --failure: #e74c3c;
 
   /* TYPOGRAPHY */
 
@@ -116,7 +116,6 @@ input:focus {
 button {
   color: var(--white);
   font-size: var(--button);
-  background-color: var(--primary);
   border-radius: 50px;
   cursor: pointer;
 }
@@ -231,15 +230,20 @@ footer .socials > * {
   margin-inline: 1rem;
 }
 footer .socials .social {
-  padding: 0.5em;
   border-radius: 8px;
   outline: 1px solid var(--white-light);
-  display: grid;
-  place-items: center;
+
   cursor: pointer;
   transition: color 0.2s ease-out, outline-color 0.2s ease-out;
 }
-footer .socials .social:hover {
+footer .socials .social a {
+  display: grid;
+  place-items: center;
+  padding: 0.5em;
+  color: var(--white);
+  transition: color 0.2s ease-out, outline-color 0.2s ease-out;
+}
+footer .socials .social a:hover {
   color: var(--primary);
   outline-color: var(--primary);
 }
@@ -247,7 +251,7 @@ footer .socials .social:hover {
 /**** Utility Classes *****/
 /*  */
 .container {
-  width: min(65rem, 95%);
+  width: min(77.5rem, 95%);
   margin-inline: auto;
 }
 
@@ -259,10 +263,20 @@ footer .socials .social:hover {
 /* Add this class to all normal button elements */
 .btn {
   padding: 0.5em 1.5rem;
+  background-image: linear-gradient(
+    to bottom right,
+    var(--primary-light),
+    var(--primary)
+  );
 }
 /* Add this class to all smaller button elements */
 .btn-small {
   padding: 0.25em 1.25em;
+  background-image: linear-gradient(
+    to bottom right,
+    var(--primary-light),
+    var(--primary)
+  );
   font-size: var(--button-small);
 }
 
@@ -290,10 +304,121 @@ footer .socials .social:hover {
 .large-card {
   min-width: 18rem;
   padding: 3rem;
-  background-color: var(--background-light);
+  background-image: linear-gradient(var(--background-light), var(--background));
   border: 4px solid var(--white-light);
 }
 
 /* Highlight Circle */
 .highlight-circle {
+  padding: 1rem;
+  border: 2px solid var(--primary);
+  display: inline-block;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+/* Popup msg card for success or failure */
+.msg-card {
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  position: fixed;
+  z-index: 100000;
+  background-color: red;
+  bottom: 4rem;
+  left: 4rem;
+  border-radius: 1rem;
+  box-shadow: 1px 3px 5px 1px rgba(255, 255, 255, 0.2);
+  animation: fadeOut 3s ease-out;
+}
+.success {
+  background-color: var(--success);
+}
+.warning {
+  background-color: var(--failure);
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  25% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+/* Toggle Switch */
+/* The switch - the box around the slider */
+#toggle .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+#toggle .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+#toggle .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+#toggle .slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+#toggle input:checked + .slider {
+  background-color: #2196f3;
+}
+
+#toggle input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+#toggle input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+#toggle .slider.round {
+  border-radius: 34px;
+}
+
+#toggle .slider.round:before {
+  border-radius: 50%;
 }
