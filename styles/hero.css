@@ -19,4 +19,5 @@
 .hero-image-container{
     width:50%;
     height:40vh;
+    background-color:  var(--background-light);
 }
