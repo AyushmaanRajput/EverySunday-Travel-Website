@@ -27,6 +27,11 @@
             margin-block: 40px;
             border-radius: 30px;
         }
+        .logSignTogle{
+            margin: 1rem 0;
+            display: flex;
+            justify-content: space-evenly;
+        }
         .main{
             display: flex;
             margin-bottom: 30px;
@@ -36,12 +41,6 @@
         
         .signup-page {
             display: none;
-        }
-        .but{
-            margin-top: 30px;
-            padding: 7px;
-            border-radius: 20px;
-            
         }
         .container > div:nth-child(1){
             width: 400px;
@@ -53,9 +52,9 @@
             font-family: sans-serif;
         }
         input{
-            padding: 2px 5px;
+            padding: 0.5rem 1rem ;
             color:grey;
-            border-radius: 10px;
+            border-radius: 50px;
         }
         #log,#sign{
             border-radius: 20px;
@@ -110,9 +109,9 @@
             <!-- Write Your HTML Code here -->
             <div id="box">
 
-                <div>
-                    <button onclick="showLogin()" class="but">Login Tab</button>
-                    <button onclick="showSignup()" class="but">Signup Tab</button>
+                <div class="logSignTogle">
+                    <button onclick="showLogin()" class="btn">Login Tab</button>
+                    <button onclick="showSignup()" class="btn">Signup Tab</button>
                 </div>
                 
                 
@@ -127,15 +126,15 @@
         
                             <div class="form-group">
                                 <label for="email1">Email:</label>
-                                <input type="email" id="email1" name="email1" autocomplete="off">
+                                <input type="email" id="email1" name="email1" autocomplete="off" placeholder="Enter email">
                             </div>
         
                             <div class="form-group">
                                 <label for="password">Password:</label>
-                                <input type="password" id="passwordl" name="password" >
+                                <input type="password" id="passwordl" name="password" placeholder="Enter password">
                             </div>
         
-                            <input type="submit" value="Login" id="log">
+                            <input type="submit" value="Login" id="log" class="btn">
         
                         </form>
                 
@@ -151,12 +150,12 @@
         
                             <div class="form-group">
                                 <label for="name">Name:</label>
-                                <input type="text" id="name" name="name" autocomplete="off">
+                                <input type="text" id="name" name="name" autocomplete="off" placeholder="Enter your name">
                             </div>
         
                             <div class="form-group">
                                 <label for="email">Email:</label>
-                                <input type="email" id="email" name="email" autocomplete="off">
+                                <input type="email" id="email" name="email" autocomplete="off" placeholder="Enter email">
                             </div>
                             
                             <div class="form-group">
@@ -166,7 +165,7 @@
                               
                             <div class="form-group">
                                 <label for="password">Password:</label>
-                                <input type="password" id="passwords" name="password">
+                                <input type="password" id="passwords" name="password" placeholder="Enter password">
                             </div>
         
                             <div class="form-group">
@@ -174,7 +173,7 @@
                                 <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password">
                             </div>
         
-                            <input type="submit" value="Signup" class="but" id="sign">
+                            <input type="submit" value="Signup" class="btn" id="sign">
         
                         </form>
                     </div>
@@ -278,8 +277,11 @@
                     name: name.value,
                     email: email.value,
                     password: password.value,
-                    dob:dob.value,
-                    imgAvatar: Math.floor((Math.random() * 10)+1)
+
+                    dob: dob.value,
+                    imgAvatar : Math.floor((Math.random() * 10)+1)
+
+                  
                 }),
                 headers: {
                     "Content-Type": "application/json"
@@ -288,6 +290,7 @@
 
             let data = await res.json();
             fetchData();
+            displayMessage("User SignIn Successfull!", "success")
             console.log(data);
         } catch (err) {
             console.log(err);
