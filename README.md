@@ -7,17 +7,17 @@ Welcome to Cooperative Bridge 6636, a web application built using HTML, CSS, and
 1. **Home Page**
    The home page serves as the landing page for the Cooperative Bridge 6636 application. It provides an overview of the platform's purpose, features, and benefits.
 
-   ![Home Page](screens\home.png)
+   ![Home Page](./screens/home.png)
 
 2. **Feedback Page**
    The feedback page allows users to share their thoughts, suggestions, and feedback about the platform. It provides a form for users to submit their feedback.
 
-   ![Feedback Page](screens\feedback.png)
+   ![Feedback Page](.screens/feedback.png)
 
 3. **Destination Page**
    The destination page displays various destinations available within the cooperative network. Users can browse through different locations, view details, and find travel options.
 
-   ![Destination Page](screens\destination.png)
+   ![Destination Page](.screens/destination.png)
 
 4. **Pricing Page**
    The pricing page provides information about the different pricing plans available for users. It details the features and benefits of each plan and allows users to select the one that best suits their needs.
