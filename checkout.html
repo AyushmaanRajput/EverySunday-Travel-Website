@@ -3,7 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout Page</title>
+    <!-- Favicon Icon -->
+    <link rel="icon" type="image/x-icon" href="/assets/brand-icon.svg">
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Links To All Style Files -->
+    <link rel="stylesheet" href="./main.css">
+
+    <title>Every Sunday | Feedback</title>
     <style>
         /* CSS here */
     </style>
@@ -24,7 +33,22 @@
     <main>
         <section class="container">
             <!--  -->
-
+            <table>
+                <thead class="thead">
+                    <th>City</th>
+                    <th>Increase people</th>
+                    <th>People</th>
+                    <th>Dcrease People</th>
+                    <th>Increase Days</th>
+                    <th>Days</th>
+                    <th>Dcrease Days</th>
+                    <th>Tiers</th> 
+                    <th>Delete</th>
+                </thead>
+                <tbody class="append">
+                    <!-- Date Appended Here -->
+                </tbody>
+            </table>
         </section>
     </main>
     <footer>
@@ -63,4 +87,187 @@
 </html>
 <script>
     // JS code goes here
+    let tbody = document.querySelector('.append');
+    const travelDestinations = [
+  {
+    city: "Mumbai",
+    numOfDay: 2,
+    numOfPeople: 2,
+    tier: "basic"
+  },
+  {
+    city: "Paris",
+    numOfDay: 7,
+    numOfPeople: 1,
+    tier: "premium"
+  },
+  {
+    city: "Tokyo",
+    numOfDay: 5,
+    numOfPeople: 3,
+    tier: "premium"
+  },
+  {
+    city: "New York",
+    numOfDay: 4,
+    numOfPeople: 2,
+    tier: "basic"
+  },
+  {
+    city: "Barcelona",
+    numOfDay: 3,
+    numOfPeople: 4,
+    tier: "luxury"
+  },
+  {
+    city: "Sydney",
+    numOfDay: 6,
+    numOfPeople: 2,
+    tier: "premium"
+  },
+  {
+    city: "Dubai",
+    numOfDay: 3,
+    numOfPeople: 1,
+    tier: "basic"
+  },
+  {
+    city: "Cape Town",
+    numOfDay: 5,
+    numOfPeople: 2,
+    tier: "premium"
+  },
+  {
+    city: "Rome",
+    numOfDay: 4,
+    numOfPeople: 3,
+    tier: "luxury"
+  },
+  {
+    city: "Bali",
+    numOfDay: 7,
+    numOfPeople: 2,
+    tier: "premium"
+  },
+];
+    let data = JSON.parse(localStorage.getItem('travel')) || [];
+    function saveLocalStorage(){
+        localStorage.setItem('travel',JSON.stringify(data));
+    }
+    // {
+    // city: "Bali",
+    // numOfDay: 7,
+    // numOfPeople: 2,
+    // tier: "premium"
+    // }
+    function savedata(){
+        travelDestinations.forEach((destination,index)=>{
+            let obj = {
+                city:destination.city,
+                numOfDay:destination.numOfDay,
+                numOfPeople:destination.numOfPeople,
+                tier:destination.tier,
+            }
+            let existingData = data.find((item) => item.city === obj.city && item.tier === obj.tier);
+
+            if (!existingData) {
+                    data.push(obj);
+            }
+        });
+        saveLocalStorage();
+    }
+    savedata();
+    displayData(data);
+    function displayData(data){
+        tbody.innerHTML=null;
+        data.forEach((e,index)=>{
+            let row = document.createElement('tr');
+            let td1 = document.createElement('td')
+            let td2 = document.createElement('button')
+            td2.className='btn'
+            let td3 = document.createElement('td')
+            let td4 = document.createElement('button')
+            td4.className='btn'
+            let td5 = document.createElement('button')
+            td5.className='btn'
+            let td6 = document.createElement('td')
+            let td7 = document.createElement('button')
+            td7.className='btn'
+            let td8 = document.createElement('td')
+
+
+            // // section code//
+            // let section= document.createElement('section');
+            // section.className='section';
+            // let option1 = document.createElement('option');
+            // option1.value='basic'
+            // option1.textContent='Basic';
+            // let option2 = document.createElement('option');
+            // option1.value='premium'
+            // option2.textContent='premium';
+            // let option3 = document.createElement('option');
+            // option3.value='luxury'
+            // option3.textContent='Luxury';
+            // section.append(option1,option2,option3);
+            // // section code end //
+            let td9 = document.createElement('button')
+            td9.className='btn'
+            td1.textContent=e.city;
+            td2.textContent='+';
+            td2.addEventListener('click', () => {
+                increasePeople(index);
+            });
+            td3.textContent=e.numOfPeople;
+            td4.textContent='-';
+            td4.addEventListener('click', () => {
+                decreasePeople(index);
+            });
+            td5.textContent='+';
+            td5.addEventListener('click', () => {
+                increaseDays(index);
+            });
+            td6.textContent=e.numOfDay;
+            td7.textContent='-';
+            td7.addEventListener('click', () => {
+                decreaseDays(index);
+            });
+            td8.textContent=e.tier;
+            td9.textContent='Delete';
+            td9.addEventListener('click', () => {
+                deleteDestination(index);
+            });
+            row.append(td1,td2,td3,td4,td5,td6,td7,td8,td9)
+            tbody.append(row);
+        })
+    }
+    // All operators functions
+    function increasePeople(index) {
+        data[index].numOfPeople++;
+        saveLocalStorage();
+        displayData(data);
+    }
+    function decreasePeople(index) {
+        if (data[index].numOfPeople > 0) {
+            data[index].numOfPeople--;
+            saveLocalStorage();
+            displayData(data);
+        }
+    }
+    function increaseDays(index) {
+        data[index].numOfDay++;
+        saveLocalStorage();
+        displayData(data);
+    }
+    function decreaseDays(index) {
+        if (data[index].numOfDay > 0) {
+            data[index].numOfDay--;
+            saveLocalStorage();
+            displayData(data);
+        }
+    }
+    function deleteDestination(index) {
+        data.splice(index, 1);
+        saveLocalStorage();
+        displayData(data);
+    }
 </script>
