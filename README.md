@@ -7,8 +7,8 @@ Welcome to Cooperative Bridge 6636, a web application built using HTML, CSS, and
 1. **Home Page**
    The home page serves as the landing page for the Cooperative Bridge 6636 application. It provides an overview of the platform's purpose, features, and benefits.
 
-   ![Home Page](screens/home1.jpg)
-   ![Home Page](screens/home2.jpg)
+   ![Home Page](screens/home01.jpg)
+   ![Home Page](screens/home02.jpg)
 
 
 2. **Destination Page**
