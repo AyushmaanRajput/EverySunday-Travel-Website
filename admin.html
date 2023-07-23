@@ -87,6 +87,17 @@
             color: white;
             text-align: center;
         }
+        .imgAvatarwraper{
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .imgAvatarwraper img{
+            width: 100%;
+            height: 100%;
+        }
         .deleteUserBtn{
             margin: 1rem 0;
         }
@@ -258,9 +269,11 @@
         let data = await res.json();
         console.log(data)
         appendDestination(data)
+        
     } 
     catch(error){
         console.log(error);
+        displayMessage("Try Again Later! :/", "warning")
     }
 }
 
@@ -286,11 +299,45 @@
             .then((data)=>{
                 console.log(data)
                 datafetch(destinationURL)
+                displayMessage("Destination Added Successfully!", "success")
             })
             .catch((err)=>{
                 console.log(err)
             })
+
+            // reset all input filds
+
+            id.value = "";
+            city.value = "";
+            country.value = "";
+            description.value = "";
+            attraction1.value = "";
+            attraction2.value = "";
+            attraction3.value = "";
+            estimatedCost.value = "";
+            rating.value = "";
+            activity1.value = "";
+            activity2.value = "";
+            activity3.value = "";
+            food1.value = "";
+            food2.value = "";
+            food3.value = "";
+            image.value = "";
         });
+
+
+        let obj={
+        '1': './assets/Avatar1.png',
+        '2': './assets/Avatar2.png',
+        '3': './assets/Avatar3.png',
+        '4': './assets/Avatar4.png',
+        '5': './assets/Avatar5.png',
+        '6': './assets/Avatar6.png',
+        '7': './assets/Avatar7.png',
+        '8': './assets/Avatar8.png',
+        '9': './assets/Avatar9.png',
+        '10': './assets/Avatar10.png',
+    }
 
     // add user data to the dom
     function displayUserData(data){
@@ -310,11 +357,11 @@
         namehead.textContent = "Name";
         emailhead.textContent = "Email";
         passwordhead.textContent = "Password";
-        imageAvatarIdhead.textContent = "ImageAvatarId";
+        imageAvatarIdhead.textContent = "ImageAvatar";
         userIdhead.textContent = "UserId";
         deletehead.textContent = "Delete";
 
-        trhead.append(namehead,emailhead,passwordhead,imageAvatarIdhead,userIdhead,deletehead);
+        trhead.append(imageAvatarIdhead,namehead,emailhead,passwordhead,userIdhead,deletehead);
         thead.append(trhead);
 
         let tbody = document.createElement("tbody");
@@ -325,13 +372,26 @@
             let email = document.createElement("td");
             let password = document.createElement("td");
             let imageAvatarId = document.createElement("td");
+            let imgAvatarwraper = document.createElement("div");
+            imgAvatarwraper.className = "imgAvatarwraper"
+            let imgAvatar = document.createElement("img");
             let userId = document.createElement("td");
+            let deletetd = document.createElement("td");
             let deleteBtn = document.createElement("button");
 
             name.textContent = ele.name;
             email.textContent = ele.email;
             password.textContent = ele.password;
-            imageAvatarId.textContent = ele.imgAvatar;
+            
+            if(obj[ele.imgAvatar]){
+                imgAvatar.src = obj[ele.imgAvatar]
+            }else{
+                imgAvatar.style.display = "none";
+            }
+
+            imgAvatarwraper.append(imgAvatar);
+            imageAvatarId.append(imgAvatarwraper)
+
             userId.textContent = ele.id;
         
             deleteBtn.className = "deleteUserBtn btn-small"
@@ -347,7 +407,8 @@
                     datauserfetch(userUrl)
                 })
             })
-            tr.append(name,email,password,imageAvatarId,userId,deleteBtn);
+            deletetd.append(deleteBtn)
+            tr.append(imageAvatarId,name,email,password,userId,deletetd);
             tbody.appendChild(tr);
         });
 
@@ -474,10 +535,32 @@
         })
         .then((data)=>{
             datafetch(destinationURL)
+            displayMessage("Destination Edited Successfully!", "success")
         })
         .catch((error)=>{
             console.log(error);
+            displayMessage("Try Again Later! :/", "warning")
         })
+
+         // reset all input filds
+
+         id.value = "";
+        city.value = "";
+        country.value = "";
+        description.value = "";
+        attraction1.value = "";
+        attraction2.value = "";
+        attraction3.value = "";
+        estimatedCost.value = "";
+        rating.value = "";
+        activity1.value = "";
+        activity2.value = "";
+        activity3.value = "";
+        food1.value = "";
+        food2.value = "";
+        food3.value = "";
+        image.value = "";
+
     })
 </script>
 </html>
