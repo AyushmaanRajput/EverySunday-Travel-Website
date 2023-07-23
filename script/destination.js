@@ -32,8 +32,9 @@ let totalCount, numPages, imageUrl;
 // All Event Listeners go here
 // searchbtn.addEventListener("click", fetchDestination);
 window.addEventListener("load", () => fetchAllDestinations(1));
-lowToHighBtn.addEventListener("click", () => filterPriceSort("asc"));
-highToLowBtn.addEventListener("click", () => filterPriceSort("desc"));
+// searchinp.addEventListener("input", () => fetchBySearch(1));
+lowToHighBtn.addEventListener("click", () => filterPriceSort("asc", 1));
+highToLowBtn.addEventListener("click", () => filterPriceSort("desc", 1));
 filterByCountry.addEventListener("change", () =>
   filterDestinationsByCountry(1)
 );
@@ -59,8 +60,8 @@ col3.addEventListener("click", () => {
   col3.classList.add("col-active");
 });
 closeDestinationBtn.addEventListener("click", () => {
-    destinationDialog.close();
-    destinationDialog.style.display = "none";
+  destinationDialog.close();
+  destinationDialog.style.display = "none";
 });
 
 //This function fetches all the destinations with a specified query string
@@ -75,7 +76,7 @@ async function fetchAllDestinations(page) {
     numPages = Math.ceil(totalCount / limit);
     let data = await res.json();
     displayDestinations(data);
-    createPaginationBtns(numPages,page);
+    createPaginationBtns(numPages, page);
   } catch (err) {
     console.log(err);
   }
@@ -87,13 +88,13 @@ async function fetchDestination() {
   }
 }
 // This function creates pagination btns
-function createPaginationBtns(num,currNum) {
+function createPaginationBtns(num, currNum) {
   setTimeout(function () {
     paginationContainer.innerHTML = "";
     for (let i = 0; i < num; i++) {
       let btn = document.createElement("button");
       btn.classList.add("btn-small");
-      if(i==currNum-1){
+      if (i == currNum - 1) {
         btn.classList.add("page-active");
       }
       btn.innerText = i + 1;
@@ -180,13 +181,40 @@ function createCard(item) {
   AddToCart.innerText = "Add To Cart";
   AddToCart.classList.add("btn-small", "atc");
   AddToCart.addEventListener("click", function () {
-    console.log(item.name + " clicked");
+    // get the login user from local storage(the user that is logged in)
+
+    // check if user.cart exists// if not create a new cart and push city to it, else push city to old cart
+
+    // Post the new user obj to db
+
+    // show success/error message based on the response
+    displayMessage("Added To Cart!", "success");
   });
 
   content.append(title, rating, price, viewDetailsBtn, AddToCart);
   card.append(img, content);
   return card;
 }
+
+// Searching function 
+async function fetchBySearch(page){
+  try {
+    main_container.innerHTML = "";
+    paginationContainer.innerHTML = "";
+    loader.style.display = "block";
+    let url = `${destinationURL}?q=${searchinp.value}&_page=${page}&_limit=${limit}`;
+    let res = await fetch(url);
+    totalCount = res.headers.get("X-Total-Count");
+    numPages = Math.ceil(totalCount / limit);
+    let data = await res.json();
+    console.log(data,searchinp.value);
+    displayDestinations(data);
+    createPaginationBtns(numPages, page);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 
 // This function filter low to High or High to low
 async function filterPriceSort(str, page) {
@@ -205,19 +233,23 @@ async function filterPriceSort(str, page) {
     numPages = Math.ceil(totalCount / limit);
     let data = await res.json();
     displayDestinations(data);
-    createFilterPaginationBtns(numPages, str);
+    createFilterPaginationBtns(numPages, str, page);
   } catch (err) {
     console.log(err);
   }
 }
 
 // This function creates pagination btns exclusively for filter methods
-function createFilterPaginationBtns(num, str) {
+function createFilterPaginationBtns(num, str, currNum) {
   setTimeout(() => {
     paginationContainer.innerHTML = "";
     for (let i = 0; i < num; i++) {
       let btn = document.createElement("button");
       btn.classList.add("btn-small");
+      // console.log(currNum);
+      if (i == currNum - 1) {
+        btn.classList.add("page-active");
+      }
       btn.innerText = i + 1;
       btn.addEventListener("click", () => {
         filterPriceSort(str, i + 1);
@@ -243,7 +275,7 @@ async function filterDestinationsByCountry(page) {
       numPages = Math.ceil(totalCount / limit);
       let data = await res.json();
       displayDestinations(data);
-      createPaginationBtnsByCountry(numPages);
+      createPaginationBtnsByCountry(numPages, page);
     } catch (e) {
       console.log(e);
     }
@@ -251,12 +283,15 @@ async function filterDestinationsByCountry(page) {
 }
 
 // This function create pagination btns exclusively for filter By Country
-function createPaginationBtnsByCountry(num) {
+function createPaginationBtnsByCountry(num, currNum) {
   setTimeout(() => {
     paginationContainer.innerHTML = "";
     for (let i = 0; i < num; i++) {
       let btn = document.createElement("button");
       btn.classList.add("btn-small");
+      if (i == currNum - 1) {
+        btn.classList.add("page-active");
+      }
       btn.innerText = i + 1;
       btn.addEventListener("click", () => {
         filterDestinationsByCountry(i + 1);
@@ -288,18 +323,21 @@ async function filterDestinationsByRating(num, page) {
     let data = await res.json();
     console.log(totalCount, numPages);
     displayDestinations(data);
-    createPaginationBtnsByRating(num, numPages);
+    createPaginationBtnsByRating(num, numPages, page);
   } catch (err) {
     console.log(err);
   }
 }
 // This function creates pagination btns exclusively for filter by rating
-function createPaginationBtnsByRating(num, numPages) {
+function createPaginationBtnsByRating(num, numPages, currNum) {
   setTimeout(() => {
     paginationContainer.innerHTML = "";
     for (let i = 0; i < numPages; i++) {
       let btn = document.createElement("button");
       btn.classList.add("btn-small");
+      if (i == currNum - 1) {
+        btn.classList.add("page-active");
+      }
       btn.innerText = i + 1;
       btn.addEventListener("click", () => {
         filterDestinationsByRating(num, i + 1);
@@ -331,18 +369,21 @@ async function filterDestinationsByPrice(str, page) {
     let data = await res.json();
     // console.log(totalCount,numPages);
     displayDestinations(data);
-    createPaginationBtnsByPrice(str, numPages);
+    createPaginationBtnsByPrice(str, numPages, page);
   } catch (err) {
     console.log(err);
   }
 }
 
-function createPaginationBtnsByPrice(str, numPages) {
+function createPaginationBtnsByPrice(str, numPages, currNum) {
   setTimeout(() => {
     paginationContainer.innerHTML = "";
     for (let i = 0; i < numPages; i++) {
       let btn = document.createElement("button");
       btn.classList.add("btn-small");
+      if (i == currNum - 1) {
+        btn.classList.add("page-active");
+      }
       btn.innerText = i + 1;
       btn.addEventListener("click", () => {
         filterDestinationsByPrice(str, i + 1);
@@ -437,7 +478,7 @@ function displayDestinationDetails(imgObj, city) {
   let title = document.createElement("h3");
   title.innerText = city.name;
   let price = document.createElement("p");
-  price.innerHTML = `It would take about <span>$${item.estimatedCost}</span> per person to travel to ${city.name}`;
+  price.innerHTML = `It would take about <span>$${city.estimatedCost}</span> per person to travel to ${city.name}`;
   let country = document.createElement("h5");
   country.innerText = city.country;
   let desc = document.createElement("p");
@@ -474,7 +515,20 @@ function displayDestinationDetails(imgObj, city) {
     <i class="fa-regular fa-star"></i>
     <i class="fa-regular fa-star"></i> (<span>${r}</span>)`;
   }
-  destinationDescription.append(title,rating, country, desc, price);
+  let aTC = document.createElement("button");
+  aTC.innerText = "Add To Cart";
+  aTC.classList.add("btn");
+  aTC.addEventListener("click", () => {
+    // get the login user from local storage(the user that is logged in)
+
+    // check if user.cart exists// if not create a new cart and push city to it, else push city to old cart
+
+    // Post the new user obj to db
+
+    // show success/error message based on the response
+    displayMessage("Added To Cart!", "success");
+  });
+  destinationDescription.append(title, rating, country, desc, price, aTC);
 
   let activityDiv = document.createElement("div");
   let activityTitle = document.createElement("h4");

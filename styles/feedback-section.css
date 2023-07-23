@@ -23,20 +23,25 @@
 .offers{
     width: 80%;
     min-height: 350px;
-    background-color: var(--white);
+    background-color: var(--background-light);
     margin-inline:auto;
     position:relative;
     top:-6em;
     padding:2rem;
     border-radius: 3rem;
+    border: 6px solid var(--white);
 }
 .offers>div:first-of-type{
-    background-color: var(--background-light);
-    width: 300px;
-    height: 400px;
+    /* background-color:#7693fc55; */
+    width: 600px;
     position: absolute;
-    border-radius: 2rem;
-    border: 4px solid var(--white);
+    top:-30%;
+    border-radius: 43% 57% 61% 39% / 39% 61% 39% 61% ;
+    /* border: 4px solid var(--white); */
+}
+.offers>div:first-of-type img{
+    width: 100%;
+    margin-left: 3rem;
 }
 .offers>div:last-of-type{
     display: inline-block;

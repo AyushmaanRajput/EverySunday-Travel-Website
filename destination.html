@@ -216,7 +216,7 @@
         "Desc Desc Desc Desc"
         "Act Act Act Act"
         "Att Att Att Att"
-        "back2 addToCart addToCart addToCart";
+        "back2 back2 back2 back2";
         gap:1rem;
         overflow-x: hidden;
     }
@@ -243,10 +243,6 @@
     }
     .close-destination:last-of-type{
         grid-area: back2;
-        grid-column: span 1;
-    }
-    #addToCart{
-        grid-area: addToCart;
         grid-column: span 1;
     }
 
@@ -376,7 +372,6 @@
                 <!-- All the activity Images goes here -->
             </div>
             <div id="destination-attractions"></div>
-            <button id="addToCart" class="btn">Add To Cart</button>
         </dialog>
         <section class="container destinations">
             <!-- Copy this searchbox If you want to use it somewhere else -->
@@ -473,7 +468,7 @@
             <!-- Copy this searchbox If you want to use it somewhere else -->
             <div class="searchbox">
                 <input  type="text" placeholder="Enter your email">
-                <button class="btn">Get Started</button>
+                <button class="btn" id="cta">Get Started</button>
             </input>
             </div>
             <hr>
@@ -489,15 +484,18 @@
             </div>
             <div class="socials">
                 <div class="social">
-                    <i class="fa-brands fa-instagram"></i>
+                    <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
                 </div>
-                <div class="social"><i class="fa-brands fa-twitter"></i></div>
                 <div class="social">
-                    <i class="fa-brands fa-facebook"></i>
+                    <a href="https://twitter.com/" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+                <div class="social">
+                    <a href="https://www.facebook.com/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
                 </div>
             </div>
         </div>
     </footer>
 </body>
+<script src="main.js"></script>
 <script src="./script/destination.js"></script>
 </html>

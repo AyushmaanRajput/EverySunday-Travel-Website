@@ -180,7 +180,7 @@
             <!-- Copy this searchbox If you want to use it somewhere else -->
             <div class="searchbox">
                 <input  type="text" placeholder="Enter your email">
-                <button class="btn">Get Started</button>
+                <button class="btn" id="cta">Get Started</button>
             </input>
             </div>
             <hr>
@@ -196,11 +196,13 @@
             </div>
             <div class="socials">
                 <div class="social">
-                    <i class="fa-brands fa-instagram"></i>
+                    <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
                 </div>
-                <div class="social"><i class="fa-brands fa-twitter"></i></div>
                 <div class="social">
-                    <i class="fa-brands fa-facebook"></i>
+                    <a href="https://twitter.com/" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+                <div class="social">
+                    <a href="https://www.facebook.com/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
                 </div>
             </div>
         </div>
@@ -208,6 +210,7 @@
     
 </body>
 </html>
+<script src="main.js"></script>
 <script>
     // Write all you JS code below
     <!-- Your HTML code remains the same -->
@@ -292,20 +295,29 @@ form2.addEventListener("submit", function(event) {
       // User logged in successfully.
       flag = true;
       if (username.value === "admin" && passwordLogin.value === "admin") {
-        alert("Successfully logged into admin page!!!!");
-        window.location.assign("admin.html");
+        displayMessage('Admin Login Successfull','success');  
+          console.log('Admin logged In');
+          setTimeout(()=>{
+              window.location.href="admin.html";
+          },2000)
+    
       } else {
-        alert("Successfully logged in!!!");
+        displayMessage('User Login Successfull','success'); 
         // Redirect to the regular user page (change "admin.html" to the appropriate user page).
-        window.location.assign("admin.html");
+        console.log('User logged In'); 
+        setTimeout(()=>{
+            window.location.href="index.html";
+        },2000);
       }
       break;
     }
-  }
+}
 
-  if (!flag) {
-    alert("Please enter correct credentials.");
-  }
+if (!flag) {
+    displayMessage('Wrong Credentials! Try Again.','warning');
+}
+username.value="";
+passwordLogin.value="";
 });
 
 </script>

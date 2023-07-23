@@ -27,6 +27,13 @@
                 <li><a href="/feedback.html">Feedback</a></li>
                 <li><a href="/prices.html">Pricing</a></li>
             </ul>
+            <!-- <div id="toggle">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+            </div> -->
+            <i class="fa-solid fa-user" id="login-btn"></i>
             <a href="./login.html"><i class="fa-solid fa-user" id="login-btn"></i></a>
         </nav>
     </header>
@@ -43,7 +50,7 @@
             </div>
            </div> 
            <div class="hero-image-container">
-            <!-- <img src="./assets/Hero Image 1.jpg" alt="Hero Image"> -->
+            <img src="./assets/Hero Image.png" alt="Hero Image">
            </div>
         </section>
         <section class="background-dark">
@@ -89,7 +96,7 @@
                     <h3 class="highlight-circle">02</h3>
                     <h2>Special Package</h2>
                     <p>Every Sunday is a service for booking hotels, air tickets and other travel services for professionals</p>
-                    <button class="btn">Learn More</button>
+                    <button class="btn" id="packageBtn">Learn More</button>
                 </div>
                 <div class="packages-cards">
                     <div class="card package-card"> 
@@ -133,12 +140,12 @@
                 <h3 class="highlight-circle">03</h3>
                 <div>
                     <h2>Full Featured on with more than 200,000 users</h2>
-                    <button class="btn">View All</button>
+                    <button class="btn" id="feedbackBtn">View All</button>
                 </div>
             </div>
             <div class="offers">
                 <div>
-                    <img src="" alt="">
+                    <img src="./assets/Seconday-Hero.png" alt="Seconday Hero Image">
                 </div>
                 <div>
                     <span>Exclusive</span>
@@ -161,7 +168,7 @@
             <!-- Copy this searchbox If you want to use it somewhere else -->
             <div class="searchbox">
                 <input  type="text" placeholder="Enter your email">
-                <button class="btn">Get Started</button>
+                <button class="btn" id="cta">Get Started</button>
             </input>
             </div>
             <hr>
@@ -177,14 +184,31 @@
             </div>
             <div class="socials">
                 <div class="social">
-                    <i class="fa-brands fa-instagram"></i>
+                    <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
                 </div>
-                <div class="social"><i class="fa-brands fa-twitter"></i></div>
                 <div class="social">
-                    <i class="fa-brands fa-facebook"></i>
+                    <a href="https://twitter.com/" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+                <div class="social">
+                    <a href="https://www.facebook.com/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
                 </div>
             </div>
         </div>
     </footer>
 </body>
 </html>
+<script src="main.js"></script>
+<script>
+let packageBtn = document.getElementById("packageBtn");
+let feedbackBtn = document.getElementById("feedbackBtn");
+
+
+packageBtn.addEventListener("click", () => {
+// console.log(packageBtn);
+window.location.href="destination.html";
+});
+feedbackBtn.addEventListener("click", () => {
+// console.log(packageBtn);
+window.location.href="feedback.html";
+});
+</script>
