@@ -119,7 +119,6 @@ function displayDestinations(arr) {
 
 // This funciton creates individual cards
 function createCard(item) {
-  console.log;
   let card = document.createElement("div");
   card.classList.add("destination-card");
 
@@ -182,13 +181,58 @@ function createCard(item) {
   AddToCart.classList.add("btn-small", "atc");
   AddToCart.addEventListener("click", function () {
     // get the login user from local storage(the user that is logged in)
+    let userId = JSON.parse(localStorage.getItem("userId"));
 
-    // check if user.cart exists// if not create a new cart and push city to it, else push city to old cart
+    if (userId) {
+      // check if user.cart exists// if not create a new cart and push city to it, else push city to old cart
+      let user = getUser(userId);
+      user
+        .then((data) => {
+          // console.log(data[0]);
+          let userObj = data[0];
+          let userCart;
+          if (userObj.cart) {
+            let flag = false;
+            userObj.cart.forEach((cartItem) => {
+              if (cartItem.city == item.name) flag = true;
+            });
+            if (flag) {
+              // If cartItem does exist display message
+              displayMessage("Already In Cart", "warning");
+            } else {
+              // If cartItem doesn't exist add it to cart
+              userObj.cart.push({
+                city: item.name,
+                numOfDays: 1,
+                numOfPeople: 1,
+                tier: "Basic",
+              });
+              userCart = userObj.cart;
+              postCart(userId, userCart);
+            }
+          } else {
+            userCart = [
+              {
+                city: item.name,
+                numOfDays: 1,
+                numOfPeople: 1,
+                tier: "Basic",
+              },
+            ];
+            postCart(userId, userCart);
+          }
+        })
+        .catch((error) => console.log(error));
 
-    // Post the new user obj to db
-
-    // show success/error message based on the response
-    displayMessage("Added To Cart!", "success");
+      // Post the new user obj to db
+      // show success/error message based on the response
+    } else {
+      //login first
+      displayMessage("Can't access cart, Login First", "warning");
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 2500);
+    }
   });
 
   content.append(title, rating, price, viewDetailsBtn, AddToCart);
@@ -196,8 +240,8 @@ function createCard(item) {
   return card;
 }
 
-// Searching function 
-async function fetchBySearch(page){
+// Searching function
+async function fetchBySearch(page) {
   try {
     main_container.innerHTML = "";
     paginationContainer.innerHTML = "";
@@ -207,14 +251,13 @@ async function fetchBySearch(page){
     totalCount = res.headers.get("X-Total-Count");
     numPages = Math.ceil(totalCount / limit);
     let data = await res.json();
-    console.log(data,searchinp.value);
+    console.log(data, searchinp.value);
     displayDestinations(data);
     createPaginationBtns(numPages, page);
   } catch (err) {
     console.log(err);
   }
 }
-
 
 // This function filter low to High or High to low
 async function filterPriceSort(str, page) {
@@ -520,13 +563,57 @@ function displayDestinationDetails(imgObj, city) {
   aTC.classList.add("btn");
   aTC.addEventListener("click", () => {
     // get the login user from local storage(the user that is logged in)
+    let userId = JSON.parse(localStorage.getItem("userId"));
 
-    // check if user.cart exists// if not create a new cart and push city to it, else push city to old cart
-
-    // Post the new user obj to db
-
-    // show success/error message based on the response
-    displayMessage("Added To Cart!", "success");
+    if (userId) {
+      // check if user.cart exists// if not create a new cart and push city to it, else push city to old cart
+      let user = getUser(userId);
+      user
+        .then((data) => {
+          // console.log(data[0]);
+          let userObj = data[0];
+          let userCart;
+          if (userObj.cart) {
+            let flag = false;
+            userObj.cart.forEach((cartItem) => {
+              if (cartItem.city == city.name) flag = true;
+            });
+            if (flag) {
+              // If cartItem does exist display message
+              displayMessage("Already In Cart", "warning");
+            } else {
+              // If cartItem doesn't exist add it to cart
+              userObj.cart.push({
+                city: city.name,
+                numOfDays: 1,
+                numOfPeople: 1,
+                tier: "Basic",
+              });
+              userCart = userObj.cart;
+              postCart(userId, userCart);
+            }
+          } else {
+            userCart = [
+              {
+                city: city.name,
+                numOfDays: 1,
+                numOfPeople: 1,
+                tier: "Basic",
+              },
+            ];
+            postCart(userId, userCart);
+          }
+        })
+        .catch((error) => console.log(error));
+      // Post the new user obj to db
+      // show success/error message based on the response
+    } else {
+      //login first
+      displayMessage("Can't access cart, Login First", "warning");
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 2500);
+    }
   });
   destinationDescription.append(title, rating, country, desc, price, aTC);
 
@@ -558,5 +645,38 @@ function displayDestinationDetails(imgObj, city) {
   });
   if (attractionDiv.innerHTML) {
     destinationAttractions.append(attTitle, attractionDiv);
+  }
+}
+
+//******* related function to add to cart*********//
+
+async function getUser(id) {
+  let url = `https://mock-every-sunday-server.onrender.com/users?id=${id}`;
+  try {
+    let res = await fetch(url);
+    return res.json();
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function postCart(id, userCart) {
+  let url = `https://mock-every-sunday-server.onrender.com/users/${id}`;
+  try {
+    let res = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cart: userCart,
+      }),
+    });
+    let data = await res.json();
+    console.log(data);
+    displayMessage("Added To Cart", "success");
+  } catch (e) {
+    console.log(e);
+    displayMessage("Error", "warning");
   }
 }

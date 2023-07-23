@@ -163,7 +163,19 @@
                 <li><a href="/feedback.html">Feedback</a></li>
                 <li><a href="/">Pricing</a></li>
             </ul>
-            <a href="./login.html"><i class="fa-solid fa-user" id="login-btn"></i></a>
+            <!-- <div id="toggle">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+            </div> -->
+            <div id="login-container">
+                <a href="./login.html" id="loginBtn"><i class="fa-solid fa-user" id="login-btn"></i></a>
+                <div style="display: none;">
+                    <a href='./checkout.html'><i class="fa-solid fa-cart-shopping" style="margin-right:1rem"></i></a>
+                    <a href="/" id="logout-btn" class='btn-small' style='border-radius:50px;color:var(--white)'>Log Out</a>
+                </div>       
+            </div>
         </nav>
     </header>
     <main>

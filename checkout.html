@@ -12,9 +12,24 @@
     <!-- Links To All Style Files -->
     <link rel="stylesheet" href="./main.css">
 
-    <title>Every Sunday | Feedback</title>
+    <title>Every Sunday | Cart</title>
     <style>
         /* CSS here */
+        .cart-section{
+            padding-block: 5rem;
+        }
+        table {
+            width: 100%;
+        }
+        td{
+            text-align: center;
+            padding:0.5rem 1rem;
+            border:1px solid var(--background-dark);
+        }
+        #append select{
+           background-color: var(--background-dark);
+           color:var(--white);
+        }
     </style>
 </head>
 <body>
@@ -22,30 +37,39 @@
         <nav class="container">
             <img src="./assets/brand-logo.svg" alt="Every Sunday Logo">
             <ul>
-                <li><a href="/">Home</a></li>
+                <li><a href="/index.html">Home</a></li>
                 <li><a href="/destination.html">Destination</a></li>
                 <li><a href="/feedback.html">Feedback</a></li>
                 <li><a href="/prices.html">Pricing</a></li>
             </ul>
-            <i class="fa-solid fa-user" id="login-btn"></i>
+            <!-- <div id="toggle">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+            </div> -->
+            <div id="login-container">
+                <a href="./login.html" id="loginBtn"><i class="fa-solid fa-user" id="login-btn"></i></a>
+                <div style="display: none;">
+                    <a href='./checkout.html'><i class="fa-solid fa-cart-shopping" style="margin-right:1rem"></i></a>
+                    <a href="/" id="logout-btn" class='btn-small' style='border-radius:50px;color:var(--white)'>Log Out</a>
+                </div>       
+            </div>
         </nav>
     </header>
     <main>
-        <section class="container">
+        <section class="container cart-section">
             <!--  -->
+            <h1>Your <span>Cart</span></h1>
             <table>
                 <thead class="thead">
                     <th>City</th>
-                    <th>Increase people</th>
                     <th>People</th>
-                    <th>Dcrease People</th>
-                    <th>Increase Days</th>
                     <th>Days</th>
-                    <th>Dcrease Days</th>
-                    <th>Tiers</th> 
-                    <th>Delete</th>
+                    <th>Tier</th> 
+                    <th>Remove Item</th>
                 </thead>
-                <tbody class="append">
+                <tbody class="append" id="append">
                     <!-- Date Appended Here -->
                 </tbody>
             </table>
@@ -90,156 +114,102 @@
 <script src="main.js"></script>
 <script>
     // JS code goes here
-    let tbody = document.querySelector('.append');
-    const travelDestinations = [
-  {
-    city: "Mumbai",
-    numOfDay: 2,
-    numOfPeople: 2,
-    tier: "basic"
-  },
-  {
-    city: "Paris",
-    numOfDay: 7,
-    numOfPeople: 1,
-    tier: "premium"
-  },
-  {
-    city: "Tokyo",
-    numOfDay: 5,
-    numOfPeople: 3,
-    tier: "premium"
-  },
-  {
-    city: "New York",
-    numOfDay: 4,
-    numOfPeople: 2,
-    tier: "basic"
-  },
-  {
-    city: "Barcelona",
-    numOfDay: 3,
-    numOfPeople: 4,
-    tier: "luxury"
-  },
-  {
-    city: "Sydney",
-    numOfDay: 6,
-    numOfPeople: 2,
-    tier: "premium"
-  },
-  {
-    city: "Dubai",
-    numOfDay: 3,
-    numOfPeople: 1,
-    tier: "basic"
-  },
-  {
-    city: "Cape Town",
-    numOfDay: 5,
-    numOfPeople: 2,
-    tier: "premium"
-  },
-  {
-    city: "Rome",
-    numOfDay: 4,
-    numOfPeople: 3,
-    tier: "luxury"
-  },
-  {
-    city: "Bali",
-    numOfDay: 7,
-    numOfPeople: 2,
-    tier: "premium"
-  },
-];
-    let data = JSON.parse(localStorage.getItem('travel')) || [];
-    function saveLocalStorage(){
-        localStorage.setItem('travel',JSON.stringify(data));
-    }
-    // {
-    // city: "Bali",
-    // numOfDay: 7,
-    // numOfPeople: 2,
-    // tier: "premium"
-    // }
-    function savedata(){
-        travelDestinations.forEach((destination,index)=>{
-            let obj = {
-                city:destination.city,
-                numOfDay:destination.numOfDay,
-                numOfPeople:destination.numOfPeople,
-                tier:destination.tier,
-            }
-            let existingData = data.find((item) => item.city === obj.city && item.tier === obj.tier);
+    let tbody = document.querySelector('#append');
 
-            if (!existingData) {
-                    data.push(obj);
-            }
-        });
-        saveLocalStorage();
+    window.addEventListener('load', getUser);
+
+async function getUser() {
+    let id=JSON.parse(localStorage.getItem('userId'));
+    let url = `https://mock-every-sunday-server.onrender.com/users?id=${id}`;
+    try {
+        let res = await fetch(url);
+        let data= await res.json();
+        // console.log(data[0].cart);
+        displayCart(data[0].cart);
+    } catch (e) {
+        console.log(e);
     }
-    savedata();
-    displayData(data);
-    function displayData(data){
-        tbody.innerHTML=null;
-        data.forEach((e,index)=>{
+}
+
+function displayCart(cart){
+        tbody.innerHTML="";
+        cart.forEach((item,i)=>{
             let row = document.createElement('tr');
-            let td1 = document.createElement('td')
-            let td2 = document.createElement('button')
-            td2.className='btn'
-            let td3 = document.createElement('td')
-            let td4 = document.createElement('button')
-            td4.className='btn'
-            let td5 = document.createElement('button')
-            td5.className='btn'
-            let td6 = document.createElement('td')
-            let td7 = document.createElement('button')
-            td7.className='btn'
-            let td8 = document.createElement('td')
+            
+            let city=document.createElement('td');
+            city.innerText = item.city;
+            
+            let numPeople=document.createElement('td');
+            // numPeople.style.display = 'flex';
+            let peopleValue= document.createElement('p');
+            peopleValue.innerText =item.numOfPeople;
+            let minus1=document.createElement('button');
+            minus1.innerText='-';
+            minus1.classList.add('btn-small');
+            minus1.addEventListener('click',()=>{
+                if(peopleValue.innerText>1){
+                    peopleValue.innerText=peopleValue.innerText-1;
+                    item.numOfPeople=+peopleValue.innerText;
+                }
+            })
+            let plus1=document.createElement('button');
+            plus1.innerText='+';
+            plus1.classList.add('btn-small');
+            plus1.addEventListener('click',()=>{
+                peopleValue.innerText=peopleValue.innerText+1;
+                item.numOfPeople=+peopleValue.innerText;
+            })
+            numPeople.append(minus1,peopleValue,plus1);
 
+            let numDays=document.createElement('td');
+            // numDays.style.display = 'flex';
+            let daysValue= document.createElement('p');
+            daysValue.innerText =item.numOfDays;
+            let minus2=document.createElement('button');
+            minus2.innerText='-';
+            minus2.classList.add('btn-small');
+            minus2.addEventListener('click',()=>{
+                if(daysValue.innerText>1){
+                    daysValue.innerText=daysValue.innerText-1;
+                    item.numOfDays=+daysValue.innerText;
+                }
+            })
+            let plus2=document.createElement('button');
+            plus2.innerText='+';
+            plus2.classList.add('btn-small');
+            plus2.addEventListener('click',()=>{
+                daysValue.innerText=daysValue.innerText+1;
+                item.numOfDays=+daysValue.innerText;
+            })
+            numDays.append(minus2,daysValue,plus2);
 
-            // // section code//
-            // let section= document.createElement('section');
-            // section.className='section';
-            // let option1 = document.createElement('option');
-            // option1.value='basic'
-            // option1.textContent='Basic';
-            // let option2 = document.createElement('option');
-            // option1.value='premium'
-            // option2.textContent='premium';
-            // let option3 = document.createElement('option');
-            // option3.value='luxury'
-            // option3.textContent='Luxury';
-            // section.append(option1,option2,option3);
-            // // section code end //
-            let td9 = document.createElement('button')
-            td9.className='btn'
-            td1.textContent=e.city;
-            td2.textContent='+';
-            td2.addEventListener('click', () => {
-                increasePeople(index);
-            });
-            td3.textContent=e.numOfPeople;
-            td4.textContent='-';
-            td4.addEventListener('click', () => {
-                decreasePeople(index);
-            });
-            td5.textContent='+';
-            td5.addEventListener('click', () => {
-                increaseDays(index);
-            });
-            td6.textContent=e.numOfDay;
-            td7.textContent='-';
-            td7.addEventListener('click', () => {
-                decreaseDays(index);
-            });
-            td8.textContent=e.tier;
-            td9.textContent='Delete';
-            td9.addEventListener('click', () => {
-                deleteDestination(index);
-            });
-            row.append(td1,td2,td3,td4,td5,td6,td7,td8,td9)
+            let tierCont=document.createElement('td');
+            let tier = document.createElement("select");
+            let options = ["Basic", "Premium", "Luxury"];
+            for (let i = 0; i < options.length; i++) {
+                let optionElement = document.createElement("option");
+                optionElement.text = options[i];
+                optionElement.value = options[i];
+                tier.append(optionElement);
+            }
+            if(item.tier=='Basic'){
+                tier.value='Basic';
+            }else if(item.tier=='Premium'){
+                tier.value='Premium';
+            }else if(item.tier=='Luxury'){
+                tier.value='Luxury';
+            }
+            tierCont.append(tier);
+
+            let td=document.createElement('td');
+            let delBtn=document.createElement('button');
+            delBtn.innerText="Remove Item";
+            delBtn.classList.add('btn');
+            delBtn.style.backgroundImage='none';
+            delBtn.style.backgroundColor='var(--failure)';
+            td.append(delBtn)
+
+            row.append(city,numPeople,numDays,tierCont,td);
             tbody.append(row);
         })
     }

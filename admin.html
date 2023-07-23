@@ -138,7 +138,18 @@
                 <li><a href="/feedback.html">Feedback</a></li>
                 <li><a href="/prices.html">Pricing</a></li>
             </ul>
-            <a href="./login.html"><i class="fa-solid fa-user" id="login-btn"></i></a>
+            <!-- <div id="toggle">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+            </div> -->
+            <div id="login-container">
+                <a href="./login.html" id="loginBtn"><i class="fa-solid fa-user" id="login-btn"></i></a>
+                <div style="display: none;">
+                    <a href="/" id="logout-btn" class='btn-small' style='border-radius:50px;color:var(--white)'>Log Out</a>
+                </div>       
+            </div>
         </nav>
     </header>
     <main>
@@ -326,6 +337,7 @@
             let password = document.createElement("td");
             let imageAvatarId = document.createElement("td");
             let userId = document.createElement("td");
+            let deleteTD=document.createElement("td");
             let deleteBtn = document.createElement("button");
 
             name.textContent = ele.name;
@@ -347,7 +359,8 @@
                     datauserfetch(userUrl)
                 })
             })
-            tr.append(name,email,password,imageAvatarId,userId,deleteBtn);
+            deleteTD.append(deleteBtn);
+            tr.append(name,email,password,imageAvatarId,userId,deleteTD);
             tbody.appendChild(tr);
         });
 
