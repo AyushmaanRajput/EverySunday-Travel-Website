@@ -128,19 +128,28 @@
            
             grid-template-columns: repeat(2,1fr);  
             grid-template-areas: 
-            "h1 h1 "
-            "basic premium";
+            "h1 h1"
+            "basic premium "
+            "luxury 0";
 
         } 
+        
         }
 
         @media screen and (max-width: 600px){
             /* smaller screen */
             .pricing{
             grid-template-columns: repeat(1,1fr);
-              
+            grid-template-areas: 
+            "h1"
+            "basic"
+            "premium"
+            "luxury"
+            ;
+           
+               
         }  
-       
+      
         }
     </style>
 </head>
