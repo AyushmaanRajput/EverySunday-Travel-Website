@@ -3,6 +3,7 @@
     align-items: center;
     justify-content: space-between;
     gap:2rem;
+    padding-block: 5rem;
 }
 
 .hero-content-container{
@@ -18,4 +19,5 @@
 .hero-image-container{
     width:50%;
     height:40vh;
+    background-color:  var(--background-light);
 }

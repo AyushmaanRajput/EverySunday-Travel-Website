@@ -19,7 +19,7 @@
         .pricing{
             padding-block: 5rem;
             display:grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: repeat(3,1fr);
             gap:2rem;
             grid-template-areas: 
             "h1 h1 h1"
@@ -124,10 +124,32 @@
         /* Media queries for Pricing Page */
         @media screen and (max-width:1020px){
             /* medium screen */
+            .pricing{
+           
+            grid-template-columns: repeat(2,1fr);  
+            grid-template-areas: 
+            "h1 h1"
+            "basic premium "
+            "luxury 0";
+
+        } 
+        
         }
 
         @media screen and (max-width: 600px){
             /* smaller screen */
+            .pricing{
+            grid-template-columns: repeat(1,1fr);
+            grid-template-areas: 
+            "h1"
+            "basic"
+            "premium"
+            "luxury"
+            ;
+           
+               
+        }  
+      
         }
     </style>
 </head>
@@ -145,7 +167,8 @@
         </nav>
     </header>
     <main>
-        <section class="container pricing">
+        
+        <section class="container pricing" id="media">
             <h1><span>Plans</span> we offer</h1>
             <div class="card">
                 <img src="https://images.unsplash.com/photo-1532089957061-ceb61a40b6be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=686&q=80" alt="Basic Tier Image">
