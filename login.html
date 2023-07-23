@@ -16,21 +16,32 @@
 
     <style>
         /* Add your CSS here(optional) */
-
+        *{
+            color: white;
+        }
+        #box{
+            width: 450px;
+            border: 5px solid whitesmoke;
+            margin: auto;
+            text-align: center;
+            margin-block: 40px;
+            border-radius: 30px;
+        }
         .main{
             display: flex;
-            width: 400px;
-            margin: auto;
-            margin-bottom: 50px;
-            margin-top: 50px;
+            margin-bottom: 30px;
+            margin-top: 30px;
+            justify-content: center;
         }
         
         .signup-page {
             display: none;
         }
         .but{
+            margin-top: 30px;
             padding: 7px;
             border-radius: 20px;
+            
         }
         .container > div:nth-child(1){
             width: 400px;
@@ -38,10 +49,13 @@
         }
         h3{
             margin-bottom: 20px;
+            color: var(--highlight);
+            font-family: sans-serif;
         }
         input{
             padding: 2px 5px;
             color:grey;
+            border-radius: 10px;
         }
         #log,#sign{
             border-radius: 20px;
@@ -82,77 +96,79 @@
     <main>
         <section class="container">
             <!-- Write Your HTML Code here -->
-            <div>
-                <button onclick="showLogin()" class="but">Login Tab</button>
-                <button onclick="showSignup()" class="but">Signup Tab</button>
-            </div>
-        
-        
-             <div class="main">
-            <!-- Add login page details here -->
+            <div id="box">
 
-            <div id="login" class="login-page">
-
-                <h3>Login Page</h3>
-
-                <form id="loginform">
-
-                    <div class="form-group">
-                        <label for="username">Username:</label>
-                        <input type="text" id="username" name="username" autocomplete="off">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password">Password:</label>
-                        <input type="password" id="passwordl" name="password" >
-                    </div>
-
-                    <input type="submit" value="Login" id="log">
-
-                </form>
+                <div>
+                    <button onclick="showLogin()" class="but">Login Tab</button>
+                    <button onclick="showSignup()" class="but">Signup Tab</button>
+                </div>
                 
-            </div>
+                
+                <div class="main">
+                    <!-- Add login page details here -->
+
         
-
-            <!-- Add signup page details here -->
-
-
-            <div id="signup" class="signup-page">
-
-                <h3>Signup Page</h3>
-
-                <form id="signupform">
-
-                    <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name" autocomplete="off">
+                    <div id="login" class="login-page">
+                        <h3>Login Page</h3>
+        
+                        <form id="loginform">
+        
+                            <div class="form-group">
+                                <label for="username">Username:</label>
+                                <input type="text" id="username" name="username" autocomplete="off">
+                            </div>
+        
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" id="passwordl" name="password" >
+                            </div>
+        
+                            <input type="submit" value="Login" id="log">
+        
+                        </form>
+                
+        
+                    <!-- Add signup page details here -->
+        
+        
+                    <div id="signup" class="signup-page">
+        
+                        <h3>Signup Page</h3>
+        
+                        <form id="signupform">
+        
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" id="name" name="name" autocomplete="off">
+                            </div>
+        
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email" autocomplete="off">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="dob">Date of Birth:</label>
+                                <input type="date" id="dob" name="dob" autocomplete="off">
+                              </div>
+                              
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" id="passwords" name="password">
+                            </div>
+        
+                            <div class="form-group">
+                                <label for="confirm-password">Confirm Password:</label>
+                                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password">
+                            </div>
+        
+                            <input type="submit" value="Signup" class="but" id="sign">
+        
+                        </form>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" autocomplete="off">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="dob">Date of Birth:</label>
-                        <input type="date" id="dob" name="dob" autocomplete="off">
-                      </div>
-                      
-                    <div class="form-group">
-                        <label for="password">Password:</label>
-                        <input type="password" id="passwords" name="password">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="confirm-password">Confirm Password:</label>
-                        <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password">
-                    </div>
-
-                    <input type="submit" value="Signup" class="but" id="sign">
-
-                </form>
             </div>
-        </div>
 
             <!-- -->
         </section>
@@ -225,6 +241,7 @@
     let form1 = document.getElementById("signupform");
     let name = document.getElementById("name");
     let email = document.getElementById("email");
+    let dob=document.getElementById("dob")
     let password = document.getElementById("passwords");
     let confirmPassword = document.getElementById("confirm-password");
 
@@ -290,7 +307,5 @@ form2.addEventListener("submit", function(event) {
     alert("Please enter correct credentials.");
   }
 });
-
-    
 
 </script>
