@@ -32,7 +32,11 @@ let totalCount, numPages, imageUrl;
 // All Event Listeners go here
 // searchbtn.addEventListener("click", fetchDestination);
 window.addEventListener("load", () => fetchAllDestinations(1));
-// searchinp.addEventListener("input", () => fetchBySearch(1));
+// fetchAllDestinations(1)
+searchinp.addEventListener("input", (e) => {
+  e.preventDefault();
+  fetchBySearch(1)
+});
 lowToHighBtn.addEventListener("click", () => filterPriceSort("asc", 1));
 highToLowBtn.addEventListener("click", () => filterPriceSort("desc", 1));
 filterByCountry.addEventListener("change", () =>
