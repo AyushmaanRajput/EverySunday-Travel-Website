@@ -72,11 +72,11 @@
         }
 
         table tr:nth-child(even) {
-        background-color: var(--background-light);
+        background-color: var(--background);
         }
 
         table tr:hover {
-            background-color: var(--white);
+            background-color: var(--background-light);
         }
 
         table th {
@@ -100,6 +100,8 @@
         }
         .deleteUserBtn{
             margin: 1rem 0;
+            background-color: var(--failure);
+            background-image: none;
         }
         .main-content{
         grid-area: maincontent;
@@ -407,8 +409,8 @@
 
             userId.textContent = ele.id;
         
-            deleteBtn.className = "deleteUserBtn btn-small"
-            deleteBtn.innerText = "Delete"
+            deleteBtn.className = "btn-small deleteUserBtn"
+            deleteBtn.innerText = "Delete";
             deleteBtn.addEventListener("click", () => {
                 console.log(ele.id)
                 fetch(`${userUrl}/${ele.id}`,{
