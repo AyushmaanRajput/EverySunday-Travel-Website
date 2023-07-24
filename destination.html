@@ -170,7 +170,7 @@
         margin-right: 0.5rem;
         margin-bottom: 0.5rem;
     }
-    .destination-card> div .destination-rating{
+    .destination-rating{
         display:inline;
         color:var(--highlight);
         font-size: 0.75rem;
@@ -278,7 +278,9 @@
     #destination-description{
         grid-area: Desc;
         margin-bottom: 1rem;
-
+    }
+    #destination-description>*{
+        margin-block:0.5rem;
     }
     #destination-activity{
         grid-area: Act;
@@ -299,6 +301,7 @@
         align-items: center;
         gap:1rem;
     }
+    
     #destination-activity>div>*,
     #destination-attractions>div>*{
         margin-right: 0.5rem;
@@ -307,10 +310,37 @@
     #destination-attractions>div:last-child{
         margin:0;
     }
+    .dest-card{
+        width:33%;
+        height: 200px;
+        overflow: hidden;
+        position: relative;
+    }
+    .dest-card h5{
+        opacity: 0;
+        cursor: pointer;
+        transition:opacity 1s ease-out;
+    }
+    .dest-card:hover h5{
+        opacity: 1;
+        position: absolute;
+        top: 50%;
+        left:50%;
+        transform:translate(-50%, -50%) !important;
+        z-index: 500;
+        width: 100%;
+        height: 100%;
+        color:var(--white);
+        background-color: #0008;
+        display:grid;
+        place-items: center;
+        overflow: hidden !important;
+    }
+
     #destination-activity>div img,
     #destination-attractions>div img{
-        width: 33%;
-        height: 200px;
+        width: 100%;
+        height: 100%;
         border-radius: 1rem;
         object-fit: cover;
     }

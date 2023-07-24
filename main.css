@@ -422,3 +422,15 @@ footer .socials .social a:hover {
 #toggle .slider.round:before {
   border-radius: 50%;
 }
+/* Animation classes */
+/* animation for sections animatoin when scrolling into view */
+.fade-in {
+  opacity: 0;
+  transform: translateY(100px);
+  transition: all 0.75s ease-in-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

@@ -51,3 +51,26 @@ if (userId) {
     window.location.href = "login.html";
   });
 }
+
+
+// FOR ANIMATION
+// Select the sections with the fade-in class
+// Select the sections with the fade-in class
+const sections = document.querySelectorAll(".fade-in");
+
+// Create an Intersection Observer instance
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+        entry.target.classList.add("visible");
+      }
+    });
+  },
+  { threshold: 0.25 }
+); // Adjust the threshold value as needed
+
+// Observe each section
+sections.forEach((section) => {
+  observer.observe(section);
+});
