@@ -206,6 +206,7 @@ function createCard(item) {
                 numOfDays: 1,
                 numOfPeople: 1,
                 tier: "Basic",
+                basePrice: item.estimatedCost,
               });
               userCart = userObj.cart;
               postCart(userId, userCart);
@@ -217,6 +218,7 @@ function createCard(item) {
                 numOfDays: 1,
                 numOfPeople: 1,
                 tier: "Basic",
+                basePrice: item.estimatedCost,
               },
             ];
             postCart(userId, userCart);
@@ -588,6 +590,7 @@ function displayDestinationDetails(imgObj, city) {
                 numOfDays: 1,
                 numOfPeople: 1,
                 tier: "Basic",
+                basePrice: city.estimatedCost,
               });
               userCart = userObj.cart;
               postCart(userId, userCart);
@@ -599,6 +602,7 @@ function displayDestinationDetails(imgObj, city) {
                 numOfDays: 1,
                 numOfPeople: 1,
                 tier: "Basic",
+                basePrice: city.estimatedCost,
               },
             ];
             postCart(userId, userCart);

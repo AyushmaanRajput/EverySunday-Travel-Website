@@ -27,6 +27,9 @@
             margin-block: 40px;
             border-radius: 30px;
         }
+        .active-tab{
+            background-color: var(--primary);
+        }
         .main{
             display: flex;
             margin-bottom: 30px;
@@ -110,9 +113,9 @@
             <!-- Write Your HTML Code here -->
             <div id="box">
 
-                <div>
-                    <button onclick="showLogin()" class="but">Login Tab</button>
-                    <button onclick="showSignup()" class="but">Signup Tab</button>
+                <div class="tabs">
+                    <button onclick="showLogin()" class="but">Login</button>
+                    <button onclick="showSignup()" class="but">Signup</button>
                 </div>
                 
                 
@@ -225,8 +228,6 @@
 <script src="main.js"></script>
 <script>
     // Write all you JS code below
-    <!-- Your HTML code remains the same -->
-
 
     // Write all your JS code below
     function showLogin() {
@@ -287,8 +288,9 @@
             });
 
             let data = await res.json();
+            displayMessage('Account Created','success');
             fetchData();
-            console.log(data);
+            // console.log(data);
         } catch (err) {
             console.log(err);
         }

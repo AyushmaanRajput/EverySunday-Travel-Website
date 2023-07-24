@@ -73,6 +73,13 @@
                     <!-- Date Appended Here -->
                 </tbody>
             </table>
+            <div class="checkout-container">
+                <h4>Your Total is $<span id="total"></span></h4>
+                <div>
+                    <button id="save-cart" class="btn secondary-btn">Save Cart</button>
+                    <button id="buy-now" class="btn">Buy Now</button>
+                </div>
+            </div>
         </section>
     </main>
     <footer>
@@ -115,17 +122,24 @@
 <script>
     // JS code goes here
     let tbody = document.querySelector('#append');
+    let total = document.querySelector('#total');
+    let saveCart=document.querySelector('#save-cart');
+    let buyBtn=document.querySelector('#buy-now');
 
     window.addEventListener('load', getUser);
-
+    let cartItems=[];
+    let user;
+    let totalValue=0;
 async function getUser() {
     let id=JSON.parse(localStorage.getItem('userId'));
     let url = `https://mock-every-sunday-server.onrender.com/users?id=${id}`;
     try {
         let res = await fetch(url);
         let data= await res.json();
-        // console.log(data[0].cart);
-        displayCart(data[0].cart);
+        console.log(data[0].cart);
+        user=data[0];
+        cartItems=data[0].cart;
+        displayCart(cartItems);
     } catch (e) {
         console.log(e);
     }
@@ -134,6 +148,7 @@ async function getUser() {
 function displayCart(cart){
         tbody.innerHTML="";
         cart.forEach((item,i)=>{
+            let price = item.price;
             let row = document.createElement('tr');
             
             let city=document.createElement('td');
@@ -212,35 +227,42 @@ function displayCart(cart){
             row.append(city,numPeople,numDays,tierCont,td);
             tbody.append(row);
         })
-    }
-    // All operators functions
-    function increasePeople(index) {
-        data[index].numOfPeople++;
-        saveLocalStorage();
-        displayData(data);
-    }
-    function decreasePeople(index) {
-        if (data[index].numOfPeople > 0) {
-            data[index].numOfPeople--;
-            saveLocalStorage();
-            displayData(data);
+}
+
+function getTotal(){
+    cartItems.forEach((item)=>{
+        if(item.tier=='Basic'){
+            totalValue+=item.basePrice;
+        }else if(item.tier=='Premium'){
+            totalValue+=item.basePrice*2;
+        }else if(item.tier=='Luxury'){
+            totalValue+=item.basePrice*3;
         }
-    }
-    function increaseDays(index) {
-        data[index].numOfDay++;
-        saveLocalStorage();
-        displayData(data);
-    }
-    function decreaseDays(index) {
-        if (data[index].numOfDay > 0) {
-            data[index].numOfDay--;
-            saveLocalStorage();
-            displayData(data);
-        }
-    }
-    function deleteDestination(index) {
-        data.splice(index, 1);
-        saveLocalStorage();
-        displayData(data);
-    }
+    })
+    total.innerText=totalValue;
+}
+
+
+async function postCart(id, userCart) {
+  let url = `https://mock-every-sunday-server.onrender.com/users/${id}`;
+  try {
+    let res = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cart: userCart,
+      }),
+    });
+    let data = await res.json();
+    console.log(data);
+    displayMessage("Added To Cart", "success");
+  } catch (e) {
+    console.log(e);
+    displayMessage("Error", "warning");
+  }
+}
+
+    
 </script>
