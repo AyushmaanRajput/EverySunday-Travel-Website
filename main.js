@@ -62,15 +62,22 @@ const sections = document.querySelectorAll(".fade-in");
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
-      if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
         entry.target.classList.add("visible");
       }
     });
   },
-  { threshold: 0.25 }
+  { threshold: 0.2 }
 ); // Adjust the threshold value as needed
 
 // Observe each section
 sections.forEach((section) => {
   observer.observe(section);
 });
+
+// Responsive nav
+let resNav=document.querySelector('.responsive-nav>.fa-bars');
+let resContent = document.querySelector('.responsive-nav-content');
+resNav.addEventListener('click', () => {
+  resContent.classList.toggle('responsive-nav-active');
+})

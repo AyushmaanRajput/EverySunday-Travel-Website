@@ -489,8 +489,11 @@
     let textarea = document.getElementById('review');
     let postBtn = document.querySelector('.btn');
 
+    let user;
+
     window.addEventListener('load',()=>{
         fetchtestimonials(url);
+        getUser();
     })
     postBtn.addEventListener('click',postData);
 
@@ -500,6 +503,7 @@
                 name:name.value,
                 rating:rating.value,
                 review:textarea.value,
+                imgAvatar:user.imgAvatar
             }
             let response = await fetch(url,{
                 method:'POST',
@@ -509,6 +513,9 @@
                 body:JSON.stringify(userdata)
             });
             let data = await response.json();
+            name.value="";
+            rating.value="";
+            review.value="";
             displayMessage('Feedback Submission Successfull','success');
             fetchtestimonials(url);
             // console.log(data); 
@@ -519,17 +526,30 @@
         }
     }
 
+    async function getUser() {
+    let id=JSON.parse(localStorage.getItem('userId'));
+    let url = `https://mock-every-sunday-server.onrender.com/users?id=${id}`;
+    try {
+        let res = await fetch(url);
+        let data= await res.json();
+        // console.log(data);
+        // console.log(data[0].cart);
+        user=data[0];
+        name.value=user.name;
+    } catch (e) {
+        console.log(e);
+    }
+    }
 
     async function fetchtestimonials(url){
         try{
             let response = await fetch(url);
             let testimonialsData = await response.json();
-            console.log(testimonialsData)
+            // console.log(testimonialsData)
             displaytestimonials(testimonialsData)
         }
         catch(error){
             console.log(error);
-            
         }
     }
     function displaytestimonials(data){
@@ -575,9 +595,9 @@
         return card;
     }
     // add hambruger
-    let menu_btn = document.querySelector('.menu-btn');
-    let navbarhamlinks = document.querySelector('.navbarhamlinks');
-    menu_btn.addEventListener('click',()=>{
-        navbarhamlinks.classList.toggle('mobile-menu')
-    })
+    // let menu_btn = document.querySelector('.menu-btn');
+    // let navbarhamlinks = document.querySelector('.navbarhamlinks');
+    // menu_btn.addEventListener('click',()=>{
+    //     navbarhamlinks.classList.toggle('mobile-menu')
+    // })
 </script>

@@ -452,16 +452,7 @@ function createDetails(city) {
       console.log(e);
     }
   });
-  city.food.forEach(async (foodItem) => {
-    try {
-      let res = await fetchImages(foodItem, 1);
-      let data = await res.json();
-      let link = data.results[0].urls.regular;
-      detailedObj[foodItem.trim()] = link;
-    } catch (e) {
-      console.log(e);
-    }
-  });
+  
   city.activity.forEach(async (act, i) => {
     try {
       let res = await fetchImages(act, 1);
@@ -660,7 +651,7 @@ function displayDestinationDetails(imgObj, city) {
       img.setAttribute("src", imgObj[att]);
       a.append(img);
       let h5 = document.createElement("h5");
-      h5.innerText = activity;
+      h5.innerText = att;
       div.append(a,h5);
       attractionDiv.append(div);
     }

@@ -22,14 +22,20 @@
 
   /* Font Sizes */
   --h1: 5rem;
+  --h1-small: 3rem;
   --h2: 3rem;
+  --h2-small: 2rem;
   --h3: 2rem;
+  --h3-small: 1.5rem;
   --h4: 1rem;
+  --h4-small: 0.9rem;
   --button-small: 0.85rem;
   --button: 1.05rem;
   --paragraph: 1rem;
+  --paragraph-small: 0.85rem;
   --nav-link: 0.9rem; /* for links in navgation and footer */
   --icon-size: 1.25rem;
+  --icon-size-small: 1rem;
   /*  */
 }
 
@@ -195,7 +201,33 @@ header i {
 header i:hover {
   color: var(--primary);
 }
-
+.responsive-nav{
+  display:none;
+  position:relative;
+}
+.responsive-nav-content{
+  display: none;
+  position: absolute;
+  z-index: 100;
+  top:150%;
+  right:0;
+  width: 95vw;
+  border-radius: 1rem 0 1rem 1rem;
+  background-color: var(--background-dark);
+  padding:1rem;
+}
+.responsive-nav-content>*{
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.responsive-nav-content ul{
+  display:flex;
+  flex-direction: column;
+}
+.responsive-nav-active{
+  display:block !important;
+  color:var(--background-dark);
+}
 /****** Footer Styling ******/
 footer {
   margin-top: auto;
@@ -433,4 +465,156 @@ footer .socials .social a:hover {
 .fade-in.visible {
   opacity: 1;
   transform: translateY(0);
+}
+/* Media Queries */
+
+@media screen and (max-width: 1050px) {
+  h1 {
+    font-size: var(--h1-small);
+  }
+  h2 {
+    font-size: var(--h2-small);
+  }
+  h3 {
+    font-size: var(--h3-small);
+  }
+  h4 {
+    font-size: var(--h4-small);
+  }
+  p {
+    font-size: var(--paragraph-small);
+  }
+  /* Header */
+  header nav ul {
+    gap: 2rem;
+  }
+
+  .footer ul {
+    gap: 1rem;
+  }
+
+  /* User Icon */
+  header i {
+    font-size: var(--icon-size-small);
+  }
+  /* Footer */
+  footer {
+    padding-block: 3rem 2rem;
+    border-radius: 3rem 3rem 0 0;
+  }
+  footer h1 {
+    margin-bottom: 2rem;
+  }
+  hr {
+    margin-top: 5em;
+  }
+  footer .footer {
+    padding-block: 1rem;
+    margin-bottom: 1rem;
+  }
+  /* Add this class to all normal button elements */
+  .btn {
+    padding: 0.25em 1em;
+    font-size: var(--button-small);
+  }
+  /* Add this class to all smaller button elements */
+  .btn-small {
+    padding: 0.2em 0.75em;
+    font-size: var(--paragraph-small);
+  }
+
+  /* Add this to your searchboxes */
+  .searchbox {
+    padding-left: 1.25em;
+  }
+
+  /* Cards and Large cards */
+  .card {
+    min-width: 10rem;
+    padding: 1rem;
+    border-radius: 2rem;
+  }
+
+  .large-card {
+    min-width: 14rem;
+    padding: 2rem;
+  }
+
+  /* Highlight Circle */
+  .highlight-circle {
+    font-size: var(--h4-small);
+    padding:0.5rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  :root{
+     /* Font Sizes */
+  --h1-small: 2.5rem;
+  --h2-small: 1.75rem;
+  --h3-small: 1.25rem;
+  --h4-small: 0.85rem;
+  --button-small: 0.85rem;
+  --button: 0.85rem;
+  --paragraph: 0.8rem;
+  --paragraph-small: 0.75rem;
+  --nav-link: 0.65rem; /* for links in navgation and footer */
+  --icon-size: 1rem;
+  --icon-size-small: 0.75rem;
+  }
+  /* Header */
+  .container>ul,
+  .container>#login-container{
+    display: none;
+  }
+
+  .responsive-nav{
+    display:block !important;
+  }
+
+
+  .footer ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* Footer */
+  footer {
+    padding-block: 2rem 1rem;
+    border-radius: 3rem 3rem 0 0;
+  }
+  footer h1 {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  hr {
+    margin-top: 5em;
+  }
+
+  /* Add this class to all smaller button elements */
+  .btn-small {
+    padding: 0.2em 0.5em;
+  }
+
+  /* Add this to your searchboxes */
+  .searchbox {
+    padding-left: 1em;
+  }
+
+  /* Cards and Large cards */
+  .card {
+    min-width: 7.5rem;
+    padding: 1rem;
+    border-radius: 2rem;
+  }
+
+  .large-card {
+    min-width: 10rem;
+    padding: 2rem;
+  }
+  /* Highlight Circle */
+  .highlight-circle {
+    font-size: var(--h4-small);
+    padding:0.25rem;
+  }
 }
