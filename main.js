@@ -1,9 +1,11 @@
 let body = document.body;
 let cta = document.getElementById("cta");
 
-cta.addEventListener("click", () => {
-  displayMessage("Submission Successfull!", "success");
-});
+if (cta) {
+  cta.addEventListener("click", () => {
+    displayMessage("Submission Successfull!", "success");
+  });
+}
 
 function displayMessage(str, type) {
   let msgCard = document.createElement("div");
@@ -40,18 +42,19 @@ let loginCont = document.querySelector("#login-container");
 let logoutCont = document.querySelector("#login-container>div");
 let logoutBtn = document.getElementById("logout-btn");
 
-if (userId) {
+if (userId === null) {
+  loginBtn.addEventListener("click", () => {
+    window.location.href = "login.html";
+  });
+} else {
+  console.log(userId);
   loginBtn.style.display = "none";
   logoutCont.style.display = "block";
   logoutBtn.addEventListener("click", () => {
     localStorage.removeItem("userId");
-  });
-} else {
-  loginBtn.addEventListener("click", () => {
-    window.location.href = "login.html";
+    displayMessage("Logged Out Successfully", "success");
   });
 }
-
 
 // FOR ANIMATION
 // Select the sections with the fade-in class
@@ -76,8 +79,8 @@ sections.forEach((section) => {
 });
 
 // Responsive nav
-let resNav=document.querySelector('.responsive-nav>.fa-bars');
-let resContent = document.querySelector('.responsive-nav-content');
-resNav.addEventListener('click', () => {
-  resContent.classList.toggle('responsive-nav-active');
-})
+let resNav = document.querySelector(".responsive-nav>.fa-bars");
+let resContent = document.querySelector(".responsive-nav-content");
+resNav.addEventListener("click", () => {
+  resContent.classList.toggle("responsive-nav-active");
+});

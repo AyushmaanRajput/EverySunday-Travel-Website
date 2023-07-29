@@ -20,25 +20,49 @@
             color: white;
         }
         #box{
-            width: 450px;
+            min-height: 80vh;
+            width: min(500px,95%);
             border: 5px solid whitesmoke;
             margin: auto;
-            text-align: center;
-            margin-block: 40px;
-            border-radius: 30px;
+            background-color: var(--background-dark);
+            overflow: hidden;
+            border-radius: 2rem;
+            border:2px solid var(--background-light);
+            margin-block: 5rem;
+            padding-block: 1rem;
+            position:relative;
+        }
+        #watermark{
+            position: absolute;
+            position: absolute;
+            bottom:-3%;
+            right: 2%;
+            font-size: 8rem;
+            color:var(--background-light);
+            opacity: 0.2;
         }
         .logSignTogle{
-            margin: 1rem 0;
+            width: 70%;
+            margin: 2rem auto;
             display: flex;
-            justify-content: space-evenly;
+            justify-content: flex-start;
+            gap:1rem;
+        }
+
+        .inactive{
+            padding: 0.5em 1.5rem;
+            border:1px solid var(--primary);
+            background-color: transparent;
+            color:var(--primary);
         }
         .main{
             display: flex;
-            margin-bottom: 30px;
-            margin-top: 30px;
             justify-content: center;
+            margin-block: 3rem;
         }
-        
+        .main>*{
+            width: 70%;
+        }
         .signup-page {
             display: none;
         }
@@ -46,31 +70,40 @@
             width: 400px;
             margin: auto;
         }
-        h3{
-            margin-bottom: 20px;
-            color: var(--highlight);
-            font-family: sans-serif;
-        }
-        input{
+
+        #box input{
+            width: 100%;
             padding: 0.5rem 1rem ;
-            color:grey;
+            color:var(--background-dark);
             border-radius: 50px;
+            font-size: var(--nav-link);
+            border:2px solid transparent;
         }
-        #log,#sign{
-            border-radius: 20px;
-            background-color: var(--primary); 
-            color: white;
-            padding: 5px 10px;
+        #box input:focus{
+            border:2px solid var(--background-light);
         }
-        .form-group {
-            margin-bottom: 20px;
+        #box input[type="submit"]{
+            margin-top: 1rem;
+            width: auto;
+            cursor: pointer !important;
+        }
+        #box #log,#box #sign{
+            color: var(--white);
+            border: none;
+        }
+        #box .form-group {
+            margin-bottom: 1.5rem;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            align-items: flex-start;
         }
 
         .form-group label {
-            flex-basis: 100px;
-            margin-right: 10px;
+            /* flex-basis: 100px; */
+           margin-bottom: 0.5rem;
+           font-size: var(--paragraph-small);
+           text-transform: uppercase;
+           letter-spacing: 2px;
         }
 
         .form-group input {
@@ -110,27 +143,23 @@
             <div id="box">
 
                 <div class="logSignTogle">
-                    <button onclick="showLogin()" class="btn">Login Tab</button>
-                    <button onclick="showSignup()" class="btn">Signup Tab</button>
+                    <button id="login-btn-form" onclick="showLogin()" class="btn">Login <i class="fa-solid fa-right-to-bracket" style="color:inherit;margin-left:0.5rem;font-size:var(--paragraph-small)"></i></button>
+                    <button id="signup-btn" onclick="showSignup()" class="inactive">Signup <i class="fa-solid fa-user-plus" style="color:inherit;margin-left:0.5rem;font-size:var(--paragraph-small)"></i></button>
                 </div>
                 
                 
                 <div class="main">
-                    <!-- Add login page details here -->
-
-        
-                    <div id="login" class="login-page">
-                        <h3>Login Page</h3>
-        
+                    <!-- Add login page details here -->     
+                    <div id="login" class="login-page">      
                         <form id="loginform">
         
                             <div class="form-group">
-                                <label for="email1">Email:</label>
+                                <label for="email1">Email</label>
                                 <input type="email" id="email1" name="email1" autocomplete="off" placeholder="Enter email">
                             </div>
         
                             <div class="form-group">
-                                <label for="password">Password:</label>
+                                <label for="password">Password</label>
                                 <input type="password" id="passwordl" name="password" placeholder="Enter password">
                             </div>
         
@@ -143,33 +172,31 @@
         
         
                     <div id="signup" class="signup-page">
-        
-                        <h3>Signup Page</h3>
-        
+    
                         <form id="signupform">
         
                             <div class="form-group">
-                                <label for="name">Name:</label>
+                                <label for="name">Name</label>
                                 <input type="text" id="name" name="name" autocomplete="off" placeholder="Enter your name">
                             </div>
         
                             <div class="form-group">
-                                <label for="email">Email:</label>
+                                <label for="email">Email</label>
                                 <input type="email" id="email" name="email" autocomplete="off" placeholder="Enter email">
                             </div>
                             
                             <div class="form-group">
-                                <label for="dob">Date of Birth:</label>
+                                <label for="dob">Date of Birth</label>
                                 <input type="date" id="dob" name="dob" autocomplete="off">
                               </div>
                               
                             <div class="form-group">
-                                <label for="password">Password:</label>
+                                <label for="password">Password</label>
                                 <input type="password" id="passwords" name="password" placeholder="Enter password">
                             </div>
         
                             <div class="form-group">
-                                <label for="confirm-password">Confirm Password:</label>
+                                <label for="confirm-password">Confirm Password</label>
                                 <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password">
                             </div>
         
@@ -178,6 +205,7 @@
                         </form>
                     </div>
                 </div>
+                <i class="fa-solid fa-users" id="watermark"></i>
 
             </div>
 
@@ -224,16 +252,27 @@
 <script src="main.js"></script>
 <script>
     // Write all you JS code below
-
+    let loginTab=document.getElementById("login");
+    let signupTab=document.getElementById("signup");
+    let loginTabBtn=document.getElementById("login-btn-form");
+    let signupTabBtn=document.getElementById("signup-btn");
     // Write all your JS code below
     function showLogin() {
-        document.getElementById("login").style.display = "block";
-        document.getElementById("signup").style.display = "none";
+        loginTab.style.display = "block";
+        signupTab.style.display = "none";
+        signupTabBtn.classList.remove('btn');
+        signupTabBtn.classList.add('inactive');
+        loginTabBtn.classList.remove('inactive');
+        loginTabBtn.classList.add('btn');
     }
 
     function showSignup() {
-        document.getElementById("login").style.display = "none";
-        document.getElementById("signup").style.display = "block";
+        loginTab.style.display = "none";
+        signupTab.style.display = "block";
+        loginTabBtn.classList.add('inactive');
+        loginTabBtn.classList.remove('btn');
+        signupTabBtn.classList.remove('inactive');
+        signupTabBtn.classList.add('btn');
     }
 
     let login_data = [];
@@ -310,6 +349,7 @@ form2.addEventListener("submit", function(event) {
       flag = true;
       if (email1.value === "admin@admin.com" && passwordLogin.value === "admin") {
         displayMessage('Admin Login Successfull','success');  
+        localStorage.setItem('userId', login_data[i].id);
           console.log('Admin logged In');
           setTimeout(()=>{
               window.location.href="admin.html";

@@ -37,6 +37,7 @@
             padding-block: 3rem;
             position:relative;
             margin-bottom: 20em;
+            min-height: 100vh;
         }
         .feedback-form{
             position:absolute;
@@ -88,6 +89,17 @@
             border-radius: 4rem;
             padding:2rem;
             padding-bottom: 10rem;
+            position: relative;
+        }
+        #loader {
+            display: none;
+            width: 150px;
+            height: 150px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10000;
         }
         #testimonial-grid .card{
             background-color: var(--background-dark);
@@ -433,7 +445,9 @@
             
             <!-- -->
             <div id="testimonials-main">
-                <div id="testimonial-grid"></div>
+                <div id="testimonial-grid">
+                     <img src="./assets/Loader.svg" alt="loader" id="loader" />
+                </div>
                 <div class="feedback-form">
                     <h3>Give Your <span>Feedback</span> Here!</h3>
                     <label for="name">Name</label>
@@ -506,10 +520,12 @@
     let rating = document.getElementById('rating');
     let textarea = document.getElementById('review');
     let postBtn = document.querySelector('.btn');
+    let loader=document.getElementById('loader');
 
     let user;
 
     window.addEventListener('load',()=>{
+        loader.style.display='block';
         fetchtestimonials(url);
         getUser();
     })
@@ -571,6 +587,7 @@
         }
     }
     function displaytestimonials(data){
+            loader.style.display='none';
             testimonials_main.innerHTML=null;
             data.forEach(item => {
                 let card = createTestimonialsCard(item);

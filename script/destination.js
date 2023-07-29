@@ -35,7 +35,7 @@ window.addEventListener("load", () => fetchAllDestinations(1));
 // fetchAllDestinations(1)
 searchinp.addEventListener("input", (e) => {
   e.preventDefault();
-  fetchBySearch(1)
+  fetchBySearch(1);
 });
 lowToHighBtn.addEventListener("click", () => filterPriceSort("asc", 1));
 highToLowBtn.addEventListener("click", () => filterPriceSort("desc", 1));
@@ -456,7 +456,7 @@ function createDetails(city) {
       console.log(e);
     }
   });
-  
+
   city.activity.forEach(async (act, i) => {
     try {
       let res = await fetchImages(act, 1);
@@ -555,6 +555,14 @@ function displayDestinationDetails(imgObj, city) {
     <i class="fa-regular fa-star"></i>
     <i class="fa-regular fa-star"></i> (<span>${r}</span>)`;
   }
+  let foods = document.createElement("ul");
+  foods.innerText = "Common Foods items include ";
+  foods.style.color = "var(--white-light)";
+  for (let i = 0; i < city.food.length; i++) {
+    let li = document.createElement("li");
+    li.innerText = `- ${city.food[i]}`;
+    foods.append(li);
+  }
   let aTC = document.createElement("button");
   aTC.innerText = "Add To Cart";
   aTC.classList.add("btn");
@@ -614,7 +622,15 @@ function displayDestinationDetails(imgObj, city) {
       }, 2500);
     }
   });
-  destinationDescription.append(title, rating, country, desc, price, aTC);
+  destinationDescription.append(
+    title,
+    rating,
+    country,
+    desc,
+    price,
+    foods,
+    aTC
+  );
 
   let activityDiv = document.createElement("div");
   let activityTitle = document.createElement("h4");
@@ -622,17 +638,17 @@ function displayDestinationDetails(imgObj, city) {
   city.activity.forEach((activity) => {
     // console.log(activity,imgObj[activity]);
     if (imgObj[activity]) {
-      let div=document.createElement("div");
-      div.classList.add('dest-card');
-      let a=document.createElement("a");
-      a.setAttribute("href",imgObj[activity]);
+      let div = document.createElement("div");
+      div.classList.add("dest-card");
+      let a = document.createElement("a");
+      a.setAttribute("href", imgObj[activity]);
       a.setAttribute("target", "_blank");
       let img = document.createElement("img");
       img.setAttribute("src", imgObj[activity]);
       a.append(img);
       let h5 = document.createElement("h5");
       h5.innerText = activity;
-      div.append(a,h5);
+      div.append(a, h5);
       activityDiv.append(div);
     }
   });
@@ -646,17 +662,17 @@ function displayDestinationDetails(imgObj, city) {
   city.attractions.forEach((att) => {
     // console.log(typeof att);
     if (imgObj[att]) {
-      let div=document.createElement("div");
-      div.classList.add('dest-card');
-      let a=document.createElement("a");
-      a.setAttribute("href",imgObj[att]);
+      let div = document.createElement("div");
+      div.classList.add("dest-card");
+      let a = document.createElement("a");
+      a.setAttribute("href", imgObj[att]);
       a.setAttribute("target", "_blank");
       let img = document.createElement("img");
       img.setAttribute("src", imgObj[att]);
       a.append(img);
       let h5 = document.createElement("h5");
       h5.innerText = att;
-      div.append(a,h5);
+      div.append(a, h5);
       attractionDiv.append(div);
     }
   });
