@@ -1,4 +1,4 @@
-# Cooperative Bridge 6636
+# Every Sunday ( Travel Agency Website )
 
 Welcome to Cooperative Bridge 6636, a web application built using HTML, CSS, and JavaScript. This project aims to create a cooperative platform that bridges people together. Below, you will find information about the project, its frontend pages, backend server, and how to access the live version deployed on Netlify.
 
